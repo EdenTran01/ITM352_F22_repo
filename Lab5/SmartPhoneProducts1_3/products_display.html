@@ -16,13 +16,16 @@
 <body 
     onload="hits_span.innerHTML = hits;
     spins_span.innerHTML = spins;">
-<h1> <script>document.write(full_name)</script>'s Used Smart Phone Store </h1>
+<script> 
+//Header
+document.write(" <h1> " + full_name + "'s Used Smar Phone Store </h1>")
+</script>
 <p style="text-align: center; font-weight: bold;">
     Hits:<span id="hits_span">0</span>
     Spins:<span id="spins_span">0</span>
 </p>
     <div><main>
-    <section class="item" onmouseover="this.className=`item rotate`" onclick="this.className=`item`">
+    <section class="item" onmouseover="this.className=`item rotate` ; spins++;spins_span.innerHTML=spins " onclick="this.className=`item`; hits++;hits_span.innerHTML=hits">
         <h2>HTC</h2>
         <p>&dollar;40.00</p> 
         <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg">
