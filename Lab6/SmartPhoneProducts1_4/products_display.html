@@ -45,25 +45,20 @@ document.write('<b>' + first_name + '</b> <i>' + last_name + `</i> \'s`);
         spins_span.innerHTML = ++spins;
     }
     hits_spins_span.innerHTML = (hits/spins).toFixed(2);
-    over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
-    win_span.innerHTML = over_half;
+    // over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
+    // win_span.innerHTML = over_half;
     // -- Winning progress depends on hits/spins
     hits_spins_ratio = hits/spins;
-    if ( hits_spins_ratio > 0 ) {
+    if (( hits_spins_ratio > 0 ) && (hits_spins_ratio < 0.25))  {
         progress = 'On your way!';
-        if ( hits_spins_ratio >= 0.25 ) {
-            progress = 'Almost there!';
-            if ( hits_spins_ratio >= 0.5 ) {
-                if( hits < spins) { 
-                    progress = 'You win!';
-                }
-            }
-        }
-    }
-    else {
+    } else if ((hits_spins_ratio >= 0.25) && (hits_spins_ratio < 0.25)) {
+        progress = 'Almost there!';
+    } else if ((hits_spins_ratio >= 0.5) && ((hits_spins_ratio < 0.25)) && (hits < spins)) {
+        progress = 'You win!';
+    } else {
         progress = 'Get going!' ;
     }
-    win_span.innerHTML = Progress;"
+    win_span.innerHTML = progress;"
 
     onclick="
     if(this.className.includes(`rotate`)) {
@@ -73,52 +68,212 @@ document.write('<b>' + first_name + '</b> <i>' + last_name + `</i> \'s`);
         this.className=`item rotate`;
     }
     hits_spins_span.innerHTML = (hits/spins).toFixed(2);
-    over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
-    win_span.innerHTML = over_half;
+    // over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
+    // win_span.innerHTML = over_half;
     // -- Winning progress depends on hits/spins
     hits_spins_ratio = hits/spins;
-    if ( hits_spins_ratio > 0 ) {
+    if (( hits_spins_ratio > 0 ) && (hits_spins_ratio < 0.25))  {
         progress = 'On your way!';
-        if ( hits_spins_ratio >= 0.25 ) {
-            progress = 'Almost there!';
-            if ( hits_spins_ratio >= 0.5 ) {
-                if( hits < spins) { 
-                    progress = 'You win!';
-                }
-            }
-        }
-    }
-    else {
+    } else if ((hits_spins_ratio >= 0.25) && (hits_spins_ratio < 0.25)) {
+        progress = 'Almost there!';
+    } else if ((hits_spins_ratio >= 0.5) && ((hits_spins_ratio < 0.25)) && (hits < spins)) {
+        progress = 'You win!';
+    } else {
         progress = 'Get going!' ;
-    }">
+    }
+    win_span.innerHTML = progress;">
         <h2>HTC</h2>
         <p>&dollar;40.00</p> 
         <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg">
     </section>
     <section class="item" 
-    onmouseover="this.className=`item rotate`; spins_span.innerHTML = ++spins; hits_spins_span.innerHTML = (hits/spins).toFixed(2);over_half = ((spins < 2*hits) && (hits < spins)) || over_half; win_span.innerHTML = over_half;"
-    onclick="this.className=`item`;  hits_span.innerHTML = ++hits; hits_spins_span.innerHTML = (hits/spins).toFixed(2);over_half = ((spins < 2*hits) && (hits < spins)) || over_half; win_span.innerHTML = over_half;">
+    onmouseover="
+    if(!this.className.includes(`rotate`)) {
+        this.className=`item rotate`; 
+        spins_span.innerHTML = ++spins;
+    }
+    hits_spins_span.innerHTML = (hits/spins).toFixed(2);
+    // over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
+    // win_span.innerHTML = over_half;
+    // -- Winning progress depends on hits/spins
+    hits_spins_ratio = hits/spins;
+    if (( hits_spins_ratio > 0 ) && (hits_spins_ratio < 0.25))  {
+        progress = 'On your way!';
+    } else if ((hits_spins_ratio >= 0.25) && (hits_spins_ratio < 0.25)) {
+        progress = 'Almost there!';
+    } else if ((hits_spins_ratio >= 0.5) && ((hits_spins_ratio < 0.25)) && (hits < spins)) {
+        progress = 'You win!';
+    } else {
+        progress = 'Get going!' ;
+    }
+    win_span.innerHTML = progress;"
+
+    onclick="
+    if(this.className.includes(`rotate`)) {
+        this.className=`item`; 
+        hits_span.innerHTML = ++hits; 
+    } else {
+        this.className=`item rotate`;
+    }
+    hits_spins_span.innerHTML = (hits/spins).toFixed(2);
+    // over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
+    // win_span.innerHTML = over_half;
+    // -- Winning progress depends on hits/spins
+    hits_spins_ratio = hits/spins;
+    if (( hits_spins_ratio > 0 ) && (hits_spins_ratio < 0.25))  {
+        progress = 'On your way!';
+    } else if ((hits_spins_ratio >= 0.25) && (hits_spins_ratio < 0.25)) {
+        progress = 'Almost there!';
+    } else if ((hits_spins_ratio >= 0.5) && ((hits_spins_ratio < 0.25)) && (hits < spins)) {
+        progress = 'You win!';
+    } else {
+        progress = 'Get going!' ;
+    }
+    win_span.innerHTML = progress;">
         <h2>Apple</h2>
         <p>&dollar;75.00</p>
         <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg">
     </section>
     <section class="item" 
-    onmouseover="this.className=`item rotate`; spins_span.innerHTML = ++spins; hits_spins_span.innerHTML = (hits/spins).toFixed(2);over_half = ((spins < 2*hits) && (hits < spins)) || over_half; win_span.innerHTML = over_half;"
-    onclick="this.className=`item`;  hits_span.innerHTML = ++hits; hits_spins_span.innerHTML = (hits/spins).toFixed(2);over_half = ((spins < 2*hits) && (hits < spins)) || over_half; win_span.innerHTML = over_half;">
+    onmouseover="
+    if(!this.className.includes(`rotate`)) {
+        this.className=`item rotate`; 
+        spins_span.innerHTML = ++spins;
+    }
+    hits_spins_span.innerHTML = (hits/spins).toFixed(2);
+    // over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
+    // win_span.innerHTML = over_half;
+    // -- Winning progress depends on hits/spins
+    hits_spins_ratio = hits/spins;
+    if (( hits_spins_ratio > 0 ) && (hits_spins_ratio < 0.25))  {
+        progress = 'On your way!';
+    } else if ((hits_spins_ratio >= 0.25) && (hits_spins_ratio < 0.25)) {
+        progress = 'Almost there!';
+    } else if ((hits_spins_ratio >= 0.5) && ((hits_spins_ratio < 0.25)) && (hits < spins)) {
+        progress = 'You win!';
+    } else {
+        progress = 'Get going!' ;
+    }
+    win_span.innerHTML = progress;"
+
+    onclick="
+    if(this.className.includes(`rotate`)) {
+        this.className=`item`; 
+        hits_span.innerHTML = ++hits; 
+    } else {
+        this.className=`item rotate`;
+    }
+    hits_spins_span.innerHTML = (hits/spins).toFixed(2);
+    // over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
+    // win_span.innerHTML = over_half;
+    // -- Winning progress depends on hits/spins
+    hits_spins_ratio = hits/spins;
+    if (( hits_spins_ratio > 0 ) && (hits_spins_ratio < 0.25))  {
+        progress = 'On your way!';
+    } else if ((hits_spins_ratio >= 0.25) && (hits_spins_ratio < 0.25)) {
+        progress = 'Almost there!';
+    } else if ((hits_spins_ratio >= 0.5) && ((hits_spins_ratio < 0.25)) && (hits < spins)) {
+        progress = 'You win!';
+    } else {
+        progress = 'Get going!' ;
+    }
+    win_span.innerHTML = progress;">
         <h2>Nokia</h2>
         <p>&dollar;35.00</p>
         <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg">
     </section>
     <section class="item" 
-    onmouseover="this.className=`item rotate`; spins_span.innerHTML = ++spins; hits_spins_span.innerHTML = (hits/spins).toFixed(2);over_half = ((spins < 2*hits) && (hits < spins)) || over_half; win_span.innerHTML = over_half;"
-    onclick="this.className=`item`;  hits_span.innerHTML = ++hits; hits_spins_span.innerHTML = (hits/spins).toFixed(2);over_half = ((spins < 2*hits) && (hits < spins)) || over_half; win_span.innerHTML = over_half;">
+    onmouseover="
+    if(!this.className.includes(`rotate`)) {
+        this.className=`item rotate`; 
+        spins_span.innerHTML = ++spins;
+    }
+    hits_spins_span.innerHTML = (hits/spins).toFixed(2);
+    // over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
+    // win_span.innerHTML = over_half;
+    // -- Winning progress depends on hits/spins
+    hits_spins_ratio = hits/spins;
+    if (( hits_spins_ratio > 0 ) && (hits_spins_ratio < 0.25))  {
+        progress = 'On your way!';
+    } else if ((hits_spins_ratio >= 0.25) && (hits_spins_ratio < 0.25)) {
+        progress = 'Almost there!';
+    } else if ((hits_spins_ratio >= 0.5) && ((hits_spins_ratio < 0.25)) && (hits < spins)) {
+        progress = 'You win!';
+    } else {
+        progress = 'Get going!' ;
+    }
+    win_span.innerHTML = progress;"
+
+    onclick="
+    if(this.className.includes(`rotate`)) {
+        this.className=`item`; 
+        hits_span.innerHTML = ++hits; 
+    } else {
+        this.className=`item rotate`;
+    }
+    hits_spins_span.innerHTML = (hits/spins).toFixed(2);
+    // over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
+    // win_span.innerHTML = over_half;
+    // -- Winning progress depends on hits/spins
+    hits_spins_ratio = hits/spins;
+    if (( hits_spins_ratio > 0 ) && (hits_spins_ratio < 0.25))  {
+        progress = 'On your way!';
+    } else if ((hits_spins_ratio >= 0.25) && (hits_spins_ratio < 0.25)) {
+        progress = 'Almost there!';
+    } else if ((hits_spins_ratio >= 0.5) && ((hits_spins_ratio < 0.25)) && (hits < spins)) {
+        progress = 'You win!';
+    } else {
+        progress = 'Get going!' ;
+    }
+    win_span.innerHTML = progress;">
         <h2>Samsung</h2>
         <p>&dollar;45.00</p>
         <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg">
     </section>
     <section class="item"     
-    onmouseover="this.className=`item rotate`; spins_span.innerHTML = ++spins; hits_spins_span.innerHTML = (hits/spins).toFixed(2);over_half = ((spins < 2*hits) && (hits < spins)) || over_half; win_span.innerHTML = over_half;"
-    onclick="this.className=`item`;  hits_span.innerHTML = ++hits; hits_spins_span.innerHTML = (hits/spins).toFixed(2);over_half = ((spins < 2*hits) && (hits < spins)) || over_half; win_span.innerHTML = over_half;">
+    onmouseover="
+    if(!this.className.includes(`rotate`)) {
+        this.className=`item rotate`; 
+        spins_span.innerHTML = ++spins;
+    }
+    hits_spins_span.innerHTML = (hits/spins).toFixed(2);
+    // over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
+    // win_span.innerHTML = over_half;
+    // -- Winning progress depends on hits/spins
+    hits_spins_ratio = hits/spins;
+    if (( hits_spins_ratio > 0 ) && (hits_spins_ratio < 0.25))  {
+        progress = 'On your way!';
+    } else if ((hits_spins_ratio >= 0.25) && (hits_spins_ratio < 0.25)) {
+        progress = 'Almost there!';
+    } else if ((hits_spins_ratio >= 0.5) && ((hits_spins_ratio < 0.25)) && (hits < spins)) {
+        progress = 'You win!';
+    } else {
+        progress = 'Get going!' ;
+    }
+    win_span.innerHTML = progress;"
+
+    onclick="
+    if(this.className.includes(`rotate`)) {
+        this.className=`item`; 
+        hits_span.innerHTML = ++hits; 
+    } else {
+        this.className=`item rotate`;
+    }
+    hits_spins_span.innerHTML = (hits/spins).toFixed(2);
+    // over_half = ((spins < 2*hits) && (hits < spins)) || over_half; 
+    // win_span.innerHTML = over_half;
+    // -- Winning progress depends on hits/spins
+    hits_spins_ratio = hits/spins;
+    if (( hits_spins_ratio > 0 ) && (hits_spins_ratio < 0.25))  {
+        progress = 'On your way!';
+    } else if ((hits_spins_ratio >= 0.25) && (hits_spins_ratio < 0.25)) {
+        progress = 'Almost there!';
+    } else if ((hits_spins_ratio >= 0.5) && ((hits_spins_ratio < 0.25)) && (hits < spins)) {
+        progress = 'You win!';
+    } else {
+        progress = 'Get going!' ;
+    }
+    win_span.innerHTML = progress;">
         <h2>Blackberry</h2>
         <p>&dollar;10.00</p>
         <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg">
