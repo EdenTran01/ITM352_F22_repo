@@ -4,9 +4,10 @@
     <tr><th>Number</th><th>Item</th></tr> 
 <script>
     var i = 1;
-    while( eval("typeof name"+i++) != 'undefined' )
+    while( eval("typeof name" + i) != 'undefined' )
 document.write(`
-    <tr><td>${i}</td><td>${eval('name'+i)}</td></tr>
+    <tr><td>${i}</td><td>${eval('name'+i++)}</td></tr>
 `);
+
 </script>
 </table>
