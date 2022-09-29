@@ -5,12 +5,22 @@ This is a product sales invoice. Focusing on Men Products
 
 //Product Data
 var product_quantities = [1,2,3,4,5]
-product_quantities.push(1);
+
+// array of all products
+// corresponds to product_quantities array
+// product_quantities[i] is the quantity for products[i]
+products = [
+ { 'name': 'small gumball', 'price': 0.02 },
+ { 'name': 'medium gumball', 'price': 0.05 },
+ { 'name': 'large gumball', 'price': 0.07 },
+ { 'name': 'small jawbreaker', 'price': 0.06 },
+ { 'name': 'large jawbreaker', 'price': 0.10 }
+];
 
  // Product 1
 var prod1 = {
   product: 'Gillette Sensor 3 Razor',
-  quantity: 2,
+  quantity: product_quantities[0],
   price: 1.23,
   "SKU#": 1234
 };
@@ -38,7 +48,7 @@ var item5 = 'Colgate Classic Toothbrush';
  var price5 = 1.89;
 
 //Compute extended prices
-var extended_price1 = prod1.quantity*prod1.price;
+var extended_price1 = product_quantities[0]*prod1.price;
 var extended_price2 = product_quantities[1]*price2;
 var extended_price3 = product_quantities[2]*price3;
 var extended_price4 = product_quantities[3]*price4;
@@ -65,7 +75,31 @@ var total = subtotal+tax;
     <title>Document</title>
 </head>
 <body>
-    
+  <table style="border: 1px solid black;text-align: center;">
+    <tbody><tr style="border: 1px solid black;">
+    <th style="border: 1px solid black;">Product #</th>
+    <th style="border: 1px solid black;"></thstyle>>Quantity</th>
+    <th style="border: 1px solid black;"></th>>Quantity</th>
+    <th style="border: 1px solid black;"></th>>Quantity</th>
+    <th style="border: 1px solid black;"></th>>Quantity</th>
+    <th style="border: 1px solid black;"></th>>Quantity</th>
+  </tr>
+    <script>
+      //Generate Table Rows
+      for(var i = 0; i<product_quantities.length; i++) {
+      document.write(` 
+      <tr style="border: 1px solid black;">
+        <td style="border: 1px solid black;">${i+1}</td>
+        <td style="border: 1px solid black;">${product_quantities[i]}</td>
+        <td style="border: 1px solid black;">${products[i]}</td>
+        <td style="border: 1px solid black;">${products[i]}</td>
+        <td style="border: 1px solid black;">${products[i]}</td>
+      `);
+    }
+    </script>
+   
+    </tbody></table>
+
     <table border="2">
         <tbody>
           <tr>
