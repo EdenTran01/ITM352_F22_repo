@@ -78,11 +78,10 @@ var total = subtotal+tax;
   <table style="border: 1px solid black;text-align: center;">
     <tbody><tr style="border: 1px solid black;">
     <th style="border: 1px solid black;">Product #</th>
-    <th style="border: 1px solid black;"></thstyle>>Quantity</th>
-    <th style="border: 1px solid black;"></th>>Quantity</th>
-    <th style="border: 1px solid black;"></th>>Quantity</th>
-    <th style="border: 1px solid black;"></th>>Quantity</th>
-    <th style="border: 1px solid black;"></th>>Quantity</th>
+    <th style="border: 1px solid black;">Quantity</th>
+    <th style="border: 1px solid black;">Name</th>
+    <th style="border: 1px solid black;">Price</th>
+    <th style="border: 1px solid black;">Ext Price</th>
   </tr>
     <script>
       //Generate Table Rows
@@ -91,9 +90,10 @@ var total = subtotal+tax;
       <tr style="border: 1px solid black;">
         <td style="border: 1px solid black;">${i+1}</td>
         <td style="border: 1px solid black;">${product_quantities[i]}</td>
-        <td style="border: 1px solid black;">${products[i]}</td>
-        <td style="border: 1px solid black;">${products[i]}</td>
-        <td style="border: 1px solid black;">${products[i]}</td>
+        <td style="border: 1px solid black;">${products[i]["name"]}</td>
+        <td style="border: 1px solid black;">\$${products[i]["price"]}</td>
+        <td style="border: 1px solid black;">\$${(product_quantities[i]*products[i]["price"]).toFixed(2)}</td>
+        </tr>
       `);
     }
     </script>
