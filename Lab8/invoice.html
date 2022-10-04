@@ -85,17 +85,16 @@ var total = subtotal+tax;
   </tr>
     <script>
       //Generate Table Rows
-      for(var i = 0; i<product_quantities.length; i++) {
+      for(var i = 0; i < product_quantities.length; i++) {
       document.write(` 
-      <tr style="border: 1px solid black;">
         <td style="border: 1px solid black;">${i+1}</td>
         <td style="border: 1px solid black;">${product_quantities[i]}</td>
         <td style="border: 1px solid black;">${products[i]["name"]}</td>
         <td style="border: 1px solid black;">\$${products[i]["price"]}</td>
         <td style="border: 1px solid black;">\$${(product_quantities[i]*products[i]["price"]).toFixed(2)}</td>
         </tr>
-      `);
-    }
+      `)
+    };
     </script>
    
     </tbody></table>

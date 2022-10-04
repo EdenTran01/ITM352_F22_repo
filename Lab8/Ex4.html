@@ -1,0 +1,58 @@
+<script>
+var product_quantities = [1,2,3,4,5]
+
+products = [
+ { 'name': 'small gumball', 'price': 0.02 },
+ { 'name': 'medium gumball', 'price': 0.05 },
+ { 'name': 'large gumball', 'price': 0.07 },
+ { 'name': 'small jawbreaker', 'price': 0.06 },
+ { 'name': 'large jawbreaker', 'price': 0.10 }
+];
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         tr:hover {background-color: yellow;}; 
+    </style>
+</head>
+<body>
+    <table style="border: 1px solid black;text-align: center;">
+        <tbody id="tableBody"
+        onclick="new_row = this.appendChild(document.createElement('tr'));
+        for (var cells_in_row = 0; cells_in_row < this.rows[0].cells.length; cells_in_row++) {
+        new_cell = new_row.appendChild(document.createElement('td'));
+        new_cell.innerHTML = 'xxx';
+        }">
+        ><tr style="border: 1px solid black;">
+        <th style="border: 1px solid black;">Product #</th>
+        <th style="border: 1px solid black;">Quantity</th>
+        <th style="border: 1px solid black;">Name</th>
+        <th style="border: 1px solid black;">Price</th>
+        <th style="border: 1px solid black;">Ext Price</th>
+      </tr>
+        <script>
+          //Generate Table Rows
+          for(var i = 0; i < product_quantities.length; i++) {
+          document.write(` 
+            <td style="border: 1px solid black;">${i+1}</td>
+            <td style="border: 1px solid black;">${product_quantities[i]}</td>
+            <td style="border: 1px solid black;">${products[i]["name"]}</td>
+            <td style="border: 1px solid black;">\$${products[i]["price"]}</td>
+            <td style="border: 1px solid black;">\$${(product_quantities[i]*products[i]["price"]).toFixed(2)}</td>
+            </tr>
+          `)
+        };
+        </script>
+       
+
+    </tbody></table>
+    <input type="button" value="Add New Row"
+    onclick="tbody = document.getElementsByTagName('table')[0];
+ tbody.addRow(tbody.rows.length +1);  ">
+</body>
+</html>
