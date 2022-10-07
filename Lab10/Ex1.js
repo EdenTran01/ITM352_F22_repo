@@ -3,7 +3,7 @@ var day = 01
 var month = "Nov"
 
 step1 = 1; //2001 - 2000 = 1
-step2 = parseInt(step1/4); //parseInt(step1/4)
+step2 = parseInt(1/4); //parseInt(step1/4)
 step3 = step1 + step2; // 1 + 0 = 1
 step4 = 3;
 step6 = step3 + step4 // 3 + 1 = 4
