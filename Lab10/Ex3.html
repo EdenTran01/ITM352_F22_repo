@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span id="firstname">Rick</span>
+    <span id="lastname">Port</span>
+    <br>    
+    <input type="button" value="Swap" 
+        onclick="swapFirstAndLastName()">
+    <script>
+        function swapFirstAndLastName(firstname, lastname) {
+            // Save the initial value of firstname temporarily
+            // Saving Rick into tempFirstName
+            var tempFirstname = document.getElementById("firstname").innerHTML;
+
+            // Copy the initial of lastname into firstname
+            // Copying Port into firstname
+            firstname = document.getElementById("lastname").innerHTML;
+            document.getElementById("firstname").innerHTML = firstname;
+
+            // Copy the initial value of firstname into lastname
+            // Copying Rick into last name
+            document.getElementById("lastname").innerHTML = tempFirstname;
+        }
+    </script>
+</body>
+</html>
+
