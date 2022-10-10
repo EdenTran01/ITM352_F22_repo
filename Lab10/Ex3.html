@@ -14,17 +14,12 @@
         onclick="swapFirstAndLastName()">
     <script>
         function swapFirstAndLastName(firstname, lastname) {
-            // Save the initial value of firstname temporarily
-            // Saving Rick into tempFirstName
+
             var tempFirstname = document.getElementById("firstname").innerHTML;
 
-            // Copy the initial of lastname into firstname
-            // Copying Port into firstname
             firstname = document.getElementById("lastname").innerHTML;
             document.getElementById("firstname").innerHTML = firstname;
 
-            // Copy the initial value of firstname into lastname
-            // Copying Rick into last name
             document.getElementById("lastname").innerHTML = tempFirstname;
         }
     </script>
