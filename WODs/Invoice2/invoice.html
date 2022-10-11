@@ -47,16 +47,16 @@ var tax = tax_rate*subtotal;
 
 //Compute Shipping
 
-if (subtotal <=50){
+if (subtotal <= 50){
   shipping = 2
 }
-else if(subtotal <=100){
+else if(subtotal <= 100){
   shippinh = 5
 }
 else(shipping = 0.05*subtotal)
 
 //Compute Grand Total
-var total = subtotal+tax;
+var total = subtotal + tax + shipping;
 </script>
 
 
