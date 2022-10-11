@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //$1.82 in pennies
+        amount = 162
+
+        //Quarters
+        q = parseInt(amount/25);
+        qr = amount%25;
+
+        console.log('There has to be', q , 'Quarters')
+
+        //Dimes
+        d = parseInt(qr/10);
+        dr = qr%10;
+
+        console.log('There has to be', d , 'Dimes')
+
+        //Nickels
+        n = parseInt(dr/5)
+        nr = dr%5;
+
+        console.log('There has to be', n , 'Nickels')
+
+        console.log('In total we need to have', nr , 'Pennies')
+
+    </script>
+</body>
+</html>
