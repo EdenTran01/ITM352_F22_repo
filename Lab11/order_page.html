@@ -1,14 +1,14 @@
 <script>
-    function checkQuantityTextbox(theTextbox) {
-        document.getElementById(theTextbox.id + '_message').innerHTML 
-        = isNonNegInt(theTextbox.value).join(" ");
-    }
-    function isNonNegInt(q, returnErrors=false) {
+     function checkQuantityTextbox(theTextBox) {
+            document.getElementById(theTextBox.name + '_message').innerHTML 
+            = notAPosInt(theTextBox.value, true).join(' ');
+        }
+    function notAPosInt(arrayElement, returnErrors=false) {
         errors = []; // assume no errors at first
-        if(Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
-        else{
-            if(q < 0) errors.push('Negative value!'); // Check if it is non-negative
-            if(parseInt(q) != q) errors.push('Not an integer!'); // Check that it is an integer
+        if(Number(arrayElement) != arrayElement) errors.push('Not a number!'); // Check if string is a number value
+        else {
+            if(arrayElement < 0) errors.push('Negative value!'); // Check if it is non-negative
+            if(parseInt(arrayElement) != arrayElement) errors.push('Not an integer!'); // Check that it is an integer
         }
         return (returnErrors ? errors:(errors.length ==0));
         
@@ -25,12 +25,29 @@
     <title>Document</title>
 </head>
 <body>
+    <script>
+        //Exercise 4
+        let params = (new URL(document.location)).searchParams;
+        if ((params.has("qty_textbox") == true) && (notAPosInt(params.get("qty_textbox")) == true)) {
+       
+        //Exercise 5
+            window.location.href = "display_purchase.html" + document.location.search;
+    
+        } else {
+            document.write(`Invalid quantity. Press the back button to try again`);
+        }
+    </script>
+    <form name="quantity_form" action="" method="POST">
    <label>quantity desired:</label>
     <input type="text" id="qty_textbox"  onkeyup="checkQuantityTextbox(this);"> 
     <span id='qty_textbox_message'>Enter a quantity</span> 
-    <br>
-    <label>quantity desired:</label>
-    <input type="text" id="qty_textbox2"  onkeyup="checkQuantityTextbox(this);"> 
-    <span id='qty_textbox2_message'>Enter a quantity</span> 
+    <script>
+        
+        //Exercise 4
+        if (params.has('qty_textbox')) {
+            quantity_form["qty_textbox"].value = params.get('qty_textbox');
+            checkQuantityTextbox(quantity_form["qty_textbox"]);
+        }
+    </script>
 </body>
 </html>
