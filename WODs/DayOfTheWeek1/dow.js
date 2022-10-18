@@ -34,5 +34,5 @@ step6 =step5 + monthKey[month]
 step7 = step6 % 7
 step8 = dayKey[step7]
 
-console.log(step8)
+console.log(`${month} ${day} ${year} was a ${dayKey[step7]}`)
 
