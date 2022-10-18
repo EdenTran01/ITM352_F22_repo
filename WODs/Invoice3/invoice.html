@@ -3,46 +3,6 @@
 This is a product sales invoice. Focusing on Men Products
 */
 
-//Product Data
-
-
- // Product 1
-var row = invoiceTable.insertRow();
-row.insertCell().innerHTML = products[1-1].brand;
-row.insertCell().innerHTML =  quantities[1-1];
-row.insertCell().innerHTML = '$' + products[1-1].price.toFixed(2);
-row.insertCell().innerHTML = '$' + extended_price1;
-
-  // Product 2
-var row = invoiceTable.insertRow();
-row.insertCell().innerHTML =  products[2-1].brand;
-row.insertCell().innerHTML =  quantities[2-1];
-row.insertCell().innerHTML = '$'+ products[2-1].price.toFixed(2);
-row.insertCell().innerHTML = '$'+ extended_price2;
-
-  // Product 3
-var row = invoiceTable.insertRow();
-row.insertCell().innerHTML =  products[3-1].brand;
-row.insertCell().innerHTML =  quantities[3-1];
-row.insertCell().innerHTML = '$'+ products[3-1].price.toFixed(2);
-row.insertCell().innerHTML = '$'+ extended_price3;
-
-  // Product 4
-var row = invoiceTable.insertRow();
-row.insertCell().innerHTML =  products[4-1].brand;
-row.insertCell().innerHTML =  quantities[4-1];
-row.insertCell().innerHTML = '$'+ products[4-1].price.toFixed(2);
-row.insertCell().innerHTML = '$'+ extended_price4;
-
-  // Product 5
-var row = invoiceTable.insertRow();
-row.insertCell().innerHTML =  products[5-1].brand;
-row.insertCell().innerHTML =  quantities[5-1];
-row.insertCell().innerHTML = '$'+ products[5-1].price.toFixed(2);
-row.insertCell().innerHTML = '$'+ extended_price5;
-
-
-
 //Compute Tax
 var tax_rate = 0.0575;
 var tax = tax_rate*subtotal;
