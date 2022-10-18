@@ -1,0 +1,63 @@
+<script>
+    var products = [
+
+{"brand" : "HTC",
+ "price" : 40.00,
+ "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg"
+},
+
+{ "brand" : "Apple",
+ "price" : 75.00,
+ "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg"
+},
+
+{ "brand" : "Nokia",
+ "price" : 35.00,
+ "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Nokia.jpg"
+},
+
+{ "brand" : "Samsung",
+ "price" : 45.00,
+ "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Samsung.jpg"
+},
+
+{ "brand" : "Blackberry",
+ "price" : 10.00,
+ "image" : "http://dport96.github.io/ITM352/morea/080.flow-control-II/Blackberry.jpg"
+},
+
+]
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartphone Products</title>
+    <link rel="stylesheet" href="products-style.css">
+</head>
+<body>
+    <h1>Used Smart Phone Store</h1>
+    <form action="./invoice.html" method="GET">
+    <div><main>
+<script>
+for (i = 0; i < products.length; i++){
+    document.write(`
+        <section class="item">
+        <h2>${products[i].brand}</h2>
+        <p>\$${products[i].price}</p>
+        <img src="${products[i].image}">
+        <label> quantity desired: </label>
+        <input type= "text" placeholder="0" name="quantities${i}" id="quantities${i}_label"
+    `);
+    }
+</script>
+
+    </main></div>
+    <footer>
+        <input type = "submit" value="Purchase">
+    </footer>
+</body>
+</form>
+</html>
