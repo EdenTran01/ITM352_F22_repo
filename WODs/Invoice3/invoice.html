@@ -26,7 +26,7 @@
                 document.write(`
                     <tr>
             <td width="43%">${products[i].brand}</td>
-            <td align="center" width="11%">${quantities[i]}<div style="color:red;">${msgerror}</td>
+            <td align="center" width="11%">${products[i].quantity}<div style="color:red;">${msgerror}</td>
             <td width="13%">\$${products[i].price.toFixed(2)}</td>
             <td width="54%">\$${extended_price}</td>
                     </tr>

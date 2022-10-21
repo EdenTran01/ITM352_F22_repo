@@ -5,14 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="./products_data.js"></script>
     <script>
-            params = (new URL(document.location)).searchParams;
+        let params = (new URL(document.location)).searchParams;
+        for (i = 0; i < products.length; i++) {
+            quantities.push(params.get("quantity" + [i]));
+            products[i].quantity = params.get("quantity" + [i])
+        };
+
 
         function generate_item_rows(product_quantities_array) {
             for (let i in product_quantities_array) {
-
-                let product_quantities_array = params.get('quantities' + i)
-
 
                 if (product_quantities_array[i] == 0) continue;
 
@@ -29,7 +32,7 @@
                 document.write(`
                     <tr>
             <td width="43%">${products[i].brand}</td>
-            <td align="center" width="11%">${quantities[i]}<div style="color:red;">${msgerror}</td>
+            <td align="center" width="11%">${products[i].quantity}<div style="color:red;">${msgerror}</td>
             <td width="13%">\$${products[i].price.toFixed(2)}</td>
             <td width="54%">\$${extended_price}</td>
                     </tr>
