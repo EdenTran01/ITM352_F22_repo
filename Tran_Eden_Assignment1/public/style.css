@@ -1,7 +1,9 @@
 img {
-    width: 200px; height: 200px
-    /*Image Adjustments*/
+    width: 200px;
+    height: 150px
+        /*Image Adjustments*/
 }
+
 .wrap {
     /*Provides a border around the products*/
     border: 1px solid black;
@@ -36,10 +38,14 @@ h2 {
     display: contents;
 }
 
-h1{
+h1 {
     text-align: center;
 }
 
-footer{
-    text-align: end;
+footer {
+    text-align: center;
+}
+
+.quantity {
+
 }

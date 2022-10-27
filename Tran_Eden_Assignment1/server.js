@@ -14,8 +14,8 @@ app.all('*', function (request, response, next) {
 // process purchase request (validate quantities, check quantity available)
 <** your code here ***>
 
-// route all other GET requests to files in public 
-app.use(express.static(__dirname + '/public'));
+   // route all other GET requests to files in public 
+   app.use(express.static(__dirname + '/public'));
 
 // start server
 app.listen(8080, () => console.log(`listening on port 8080`));

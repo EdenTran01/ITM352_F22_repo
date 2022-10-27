@@ -1,5 +1,7 @@
+<!-- Invoice Taken from Store 1 WOD-->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,15 +22,15 @@
                 if (product_quantities_array[i] == 0) continue;
 
                 errors = NotPosInt(product_quantities_array[i], true);
-                
-                if (errors.length == 0) { 
+
+                if (errors.length == 0) {
                     extended_price = product_quantities_array[i] * products[i].price;
                     var msgerror = "";
-                } else { 
+                } else {
                     extended_price = 0 * products[i].price;
                     var msgerror = errors.join(`<br>`);
                 }
-                
+
                 document.write(`
                     <tr>
             <td width="43%">${products[i].model}</td>
@@ -39,34 +41,35 @@
                 `);
                 subtotal += extended_price;
             };
-            
+
         }
-        function NotPosInt(arrayElement, returnErrors=false) {
+        function NotPosInt(arrayElement, returnErrors = false) {
             errors = []; // assume no errors at first
-            if(Number(arrayElement) != arrayElement) errors.push('Not a number!'); // Check if string is a number value
-            if(arrayElement < 0) errors.push('Negative value!'); // Check if it is non-negative
-            if(parseInt(arrayElement) != arrayElement) errors.push('Not an integer!'); // Check that it is an integer
+            if (Number(arrayElement) != arrayElement) errors.push('Not a number!'); // Check if string is a number value
+            if (arrayElement < 0) errors.push('Negative value!'); // Check if it is non-negative
+            if (parseInt(arrayElement) != arrayElement) errors.push('Not an integer!'); // Check that it is an integer
 
             return (returnErrors ? errors : (errors.length == 0));
         };
         // Subtotal
-            var subtotal = 0;
-        
+        var subtotal = 0;
+
     </script>
 </head>
+
 <body>
-  <table border="2">
-    <tr>
-      <th style="text-align: center;" width="43%">Item</th>
-      <th style="text-align: center;" width="11%">quantity</th>
-      <th style="text-align: center;" width="13%">price</th>
-      <th style="text-align: center;" width="54%">extended price</th>
-    </tr>
-    
+    <table border="2">
+        <tr>
+            <th style="text-align: center;" width="43%">Item</th>
+            <th style="text-align: center;" width="11%">quantity</th>
+            <th style="text-align: center;" width="13%">price</th>
+            <th style="text-align: center;" width="54%">extended price</th>
+        </tr>
+
         <script>
             this.innerHTML = generate_item_rows(quantities);
             // Compute Tax
-            var taxRate = (5.75/100);
+            var taxRate = (5.75 / 100);
             var tax = subtotal * taxRate;
 
             // Compute Shipping
@@ -89,7 +92,7 @@
                 </tr>`);
             document.write(`
                 <tr>
-                  <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @ ${taxRate*100}</span></td>
+                  <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @ ${taxRate * 100}</span></td>
                   <td width="54%">$${tax.toFixed(2)}</td>
                 </tr>`);
             document.write(`
@@ -106,8 +109,9 @@
     </table>
 
     <p><b>OUR SHIPPING POLICY IS: A subtotal $0 - $49.99 will be $2 shipping<br>
-        A subtotal $50 - $99.99 will be $5 shipping<br>
-        Subtotals over $100 will be charged 5% of the subtotal amount
-    </b></p>
+            A subtotal $50 - $99.99 will be $5 shipping<br>
+            Subtotals over $100 will be charged 5% of the subtotal amount
+        </b></p>
 </body>
+
 </html>
