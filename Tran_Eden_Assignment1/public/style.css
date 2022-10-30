@@ -4,10 +4,6 @@ img {
         /*Image Adjustments*/
 }
 
-h1 {
-    text-align: center;
-}
-
 footer {
     text-align: center;
 }
@@ -34,4 +30,9 @@ footer input{
     font-weight: bold;
     border: 3px solid black;
     box-shadow: 5px 5px 10px black;
+}
+
+h1{
+    text-align: center;
+    font-weight: bold;
 }
