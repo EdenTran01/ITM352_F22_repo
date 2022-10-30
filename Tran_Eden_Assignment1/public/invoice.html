@@ -21,7 +21,7 @@
 
                 if (product_quantities_array[i] == 0) continue;
 
-                errors = NotPosInt(product_quantities_array[i], true);
+                errors = NonNegInt(product_quantities_array[i], true);
 
                 if (errors.length == 0) {
                     extended_price = product_quantities_array[i] * products[i].price;
@@ -43,7 +43,7 @@
             };
 
         }
-        function NotPosInt(arrayElement, returnErrors = false) {
+        function NonNegInt(arrayElement, returnErrors = false) {
             errors = []; // assume no errors at first
             if (Number(arrayElement) != arrayElement) errors.push('Not a number!'); // Check if string is a number value
             if (arrayElement < 0) errors.push('Negative value!'); // Check if it is non-negative
