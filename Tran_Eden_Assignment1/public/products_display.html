@@ -16,13 +16,13 @@
 <body>
     <h1>Consoles</h1>
     <form action="./process_form" method="POST">
-            <div class="d-flex justify-content-evenly row">
+            <div class="d-flex justify-content-evenly row" >
             <script>
                 //Taken from Store1 WOD and Added Quantity Avail label
                 for (i = 0; i < products.length; i++) {
                     document.write(`
                     <div class="col-3 p-5">
-        <div class="card" style="width: 18rem;">
+        <div class="card customcard" style="width: 18rem;">
             <img src="${products[i].image}">
             <div class="card-body">
                 <h2>${products[i].model}</h2>
@@ -45,7 +45,7 @@
 
 
         <footer>
-            <input type="submit" value="Purchase" style="background-color:wheat">
+            <input type="submit" value="Purchase" style="background-color:white">
         </footer>
 </body>
 </form>

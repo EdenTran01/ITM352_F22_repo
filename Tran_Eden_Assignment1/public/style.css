@@ -4,7 +4,6 @@ img {
         /*Image Adjustments*/
 }
 
-
 h1 {
     text-align: center;
 }
@@ -13,3 +12,26 @@ footer {
     text-align: center;
 }
 
+body {
+    background-color: wheat;
+}
+
+.customcard{
+    border: 5px solid black;
+    box-shadow: 10px 5px 15px black;
+}
+
+p{
+    font-size: xx-large !important;
+}
+
+.quantity{
+    font-size: large !important;
+}
+
+footer input{
+    font-size: x-large;
+    font-weight: bold;
+    border: 3px solid black;
+    box-shadow: 5px 5px 10px black;
+}
