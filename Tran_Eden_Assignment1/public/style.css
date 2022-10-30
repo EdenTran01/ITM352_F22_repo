@@ -4,39 +4,6 @@ img {
         /*Image Adjustments*/
 }
 
-.wrap {
-    /*Provides a border around the products*/
-    border: 1px solid black;
-    padding: 5px;
-    display: flex;
-    margin: 25px;
-    max-width: 100%;
-    flex-wrap: wrap;
-}
-
-section {
-    /* Adjustment of all products to form a dynamic array*/
-    display: flex;
-    justify-content: center;
-    margin: 100px;
-    min-width: 15%;
-    border: 0px solid black;
-    max-width: 200%;
-    overflow: hidden;
-}
-
-p {
-    /*Price Text adjustments*/
-    font-size: 25px;
-    margin-top: auto;
-}
-
-h2 {
-    /*Product Text adjustments*/
-    margin: 0%;
-    display: flex;
-    display: contents;
-}
 
 h1 {
     text-align: center;
@@ -45,5 +12,4 @@ h1 {
 footer {
     text-align: center;
 }
-
 

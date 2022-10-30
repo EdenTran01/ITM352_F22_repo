@@ -7,33 +7,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consoles</title>
     <script src="./products_data.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
     <h1>Consoles</h1>
     <form action="./process_form" method="POST">
-        <div class="wrap">
+            <div class="d-flex justify-content-evenly row">
             <script>
                 //Taken from Store1 WOD and Added Quantity Avail label
                 for (i = 0; i < products.length; i++) {
                     document.write(`
-<section>
-    <img src="${products[i].image}">
-    <h2>${products[i].model}</h2>
-    <p>\$${products[i].price}</p>
-  <div class="quantity">
-    ${products[i].quantity_available} available
-    <br> 
-    <label> Quantity: </label>
-    <input type= "text" placeholder="" name="quantity${i}" id="quantity${i}_label">
-  </div>
-</section>
+                    <div class="col-3 p-5">
+        <div class="card" style="width: 18rem;">
+            <img src="${products[i].image}">
+            <div class="card-body">
+                <h2>${products[i].model}</h2>
+                <p>$${products[i].price}</p>
+                <div class="quantity">
+                    ${products[i].quantity_available} available
+                    <br>
+                    <label> Quantity: </label>
+                    <input type="text" placeholder="" name="quantity${i}" id="quantity${i}_label">
+                </div>
+            </div>
+        </div>
+    </div>
      `);
                 }
             </script>
+            </div>
 
-        </div>
+
+
+
         <footer>
             <input type="submit" value="Purchase" style="background-color:wheat">
         </footer>
