@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<script src="./product_data.js"></script>
+    </head>
+    <body>
+
+    <script>
+    function isNonNegInt(q, returnErrors = false) {
+    // Checks if a string q is a non-neg integer. If returnErrors is true, the array of errors is returned.
+    // Otherwise returns true if q is non-neg int.
+    errors = []; // assume no errors at first
+    if (q == '') q = 0;
+    if (Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
+    else {
+        if (q < 0) errors.push('Negative value!'); // Check if it is non-negative
+        if (parseInt(q) != q) errors.push('Not an integer!'); // Check that it is an integer
+        }
+
+    return returnErrors ? errors : (errors.length == 0);
+}
+
+let params = (new URL(document.location)).searchParams;
+var q = params.get('quantity');
+let brand = products[0]['brand'];
+let brand_price = products[0]['price'];
+
+    if (typeof q != 'undefined') {
+        if (isNonNegInt(q)) {
+            document.write(`<h2>Thank you for purchasing ${q} items</h2>`);
+        }
+        else {
+            document.write(`Error: ${q} is not a quantity. Hit the back button to fix. quantity. Press the back button and try again.`);
+        }
+}
+</script>
+
+</body>
+</html>

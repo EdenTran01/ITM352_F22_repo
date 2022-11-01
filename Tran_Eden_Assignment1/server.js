@@ -66,14 +66,14 @@ app.use(express.static(__dirname + '/public'));
 
 app.listen(8080, () => console.log(`listening on port 8080`)); // note the use of an anonymous function here to do a callback
 
-function NonNegInt(arrayElement, returnErrors = false) {
+function NonNegInt(q, returnErrors = false) {
    errors = []; // assume no errors at first
-   if(arrayElement == "") {
-      arrayElement = 0;
+   if(q == "") {
+      q = 0;
    }
-   if (Number(arrayElement) != arrayElement) errors.push('Not a number!'); // Check if string is a number value
-   if (arrayElement < 0) errors.push('Negative value!'); // Check if it is non-negative
-   if (parseInt(arrayElement) != arrayElement) errors.push('Not an integer!'); // Check that it is an integer
+   if (Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
+   if (q < 0) errors.push('Negative value!'); // Check if it is non-negative
+   if (parseInt(q) != q) errors.push('Not an integer!'); // Check that it is an integer
 
    return (returnErrors ? errors : (errors.length == 0));
 }

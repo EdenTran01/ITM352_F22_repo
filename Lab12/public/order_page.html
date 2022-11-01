@@ -1,36 +1,64 @@
-<script>
-    function checkQuantityTextbox(theTextbox) {
-        document.getElementById(theTextbox.id + '_message').innerHTML = isNonNegInt(theTextbox.value).join(' ');
-    }
-    function isNonNegInt(q) {
-        errors = []; // assume no errors at first
-        if (Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
-        else{
-            if (q < 0) errors.push('Negative value!'); // Check if it is non-negative
-            if (parseInt(q) != q) errors.push('Not an integer!'); // Check that it is an integer
-        }
-        return errors;
-    } 
-</script>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <script src="./product_data.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<title>order page</title>
 </head>
-
 <body>
+<script>
+   for (i in products) {
+        document.write(`<h4>${products[i]["total_sold"]} ${products[i]["brand"]} have been sold!</h4>`);
+    }
+    document.write(`<h3>${products[0]["brand"]} at \$${products[0]["price"]}</h3>`);</script>
+    
+<form name="quantity_form" action="./process_form" method="POST">
     <label>quantity desired:</label>
-    <input type="text" id="qty_textbox" onkeyup="checkQuantityTextbox(this);">
+    <input type="text" name="quantity_textbox" onkeyup="checkQuantityTextbox(this)">
     <span id='qty_textbox_message'>Enter a quantity</span>
     <br>
-    <label>quantity desired:</label>
-    <input type="text" id="qty_textbox2" onkeyup="checkQuantityTextbox(this);">
-    <span id='qty_textbox2_message'>Enter a quantity</span>
+    <br>
+    <input type="submit" value="Purchase" name="submitbutton">
+</form> 
 </body>
-
 </html>
+<script>
+        function checkQuantityTextbox(the_textbox){
+            var errs = isStringNonNegInt(the_textbox.value, true);
+            qty_textbox_message.innerHTML = errs.join(',');
+        };
+
+        function isStringNonNegInt(q, returnErrors = false) { 
+        //this function checks if the string is a non negative integer
+            errors = []; // assume no errors at first
+            if (q == '') q = 0; //don't push an error if it is 0
+            if (Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
+            else {
+                if (q < 0) errors.push('Negative value!'); // Check if it is non-negative
+                if (parseInt(q) != q) errors.push('Not an integer!'); // Check that it is an integer
+            }
+        return  (returnErrors ? errors : (errors.length == 0));
+};  
+        function displayPurchase() {
+            var qty = quantity_textbox.value;
+            var error = isStringNonNegInt(qty, true);
+        if (error.length == 0) {
+            window.location.href = "display_purchase.html" + document.location.search;
+        }
+        else {
+            qty_textbox_message.innerHTML = `<font color = "red">${error.join(' ')} Enter a valid quantity!</font>`;
+        }
+    }
+</script>
+<script>
+    let params = (new URL(document.location)).searchParams;
+   if (params.has('quantity_textbox')) {
+        quantity_form["quantity_textbox"].value = params.get('quantity_textbox');
+        checkQuantityTextbox(quantity_form["quantity_textbox"]);
+    }
+    if(params.get('quantity_textbox') > 0) {
+    document.body.innerHTML = `Thank you for ordering ${params.get('quantity_textbox')} things!`;
+}
+</script>

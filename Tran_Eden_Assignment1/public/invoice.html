@@ -1,13 +1,15 @@
+<!-- Author: Eden Tran-->
 <!-- Invoice Taken from Store 1 WOD-->
+<!-- Modifications to Table-->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Invoice</title>
     <!-- CSS only -->
+    <!-- Taken from CSS bootsrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="./products_data.js"></script>
     <script>
@@ -37,7 +39,7 @@
                     <tr>
             <td width="43%">${products[i].model}</td>
             <td align="center" width="11%">${products[i].quantity}<div style="color:red;">${msgerror}</td>
-            <td width="13%">\$${products[i].price.toFixed(2)}</td>
+            <td width="18%">\$${products[i].price.toFixed(2)}</td>
             <td width="54%">\$${extended_price}</td>
                     </tr>
                 `);
@@ -59,14 +61,29 @@
     </script>
 </head>
 
+<style>
+    body {
+        background-color: wheat;
+        /*background color change to wheat*/
+    }
+    table {
+        background-color: white;
+        box-shadow: 5px 5px 10px black;
+        /*color change on textbox to white with a shadow to display emphasis*/
+    }
+    td {
+        font-size: 18px;
+        text-align: center;
+        /*font size change and alignment*/
+    }
+</style>
+
 <body>
-<div class = "d-flex justify-content-center col" >
-    <div class="card text-center"  style="width: 40rem;">
-        <div class="text-dark text-start fs-2">
+    <table style="border:5px solid black; margin-top:15% ;margin-left:auto;margin-right:auto; font-size: large; ">
             <tr>
                 <th style="text-align: center;" width="43%">Item</th>
                 <th style="text-align: center;" width="11%">quantity</th>
-                <th style="text-align: center;" width="13%">price</th>
+                <th style="text-align: center;" width="18%">price</th>
                 <th style="text-align: center;" width="54%">extended price</th>
               </tr>
         </div>
@@ -112,8 +129,9 @@
                   <td width="54%"><strong>$${Total.toFixed(2)}</strong></td>
                 </tr>`);
         </script>
-    </div>
-    <p>
+        </table>
+        <br>
+    <p style=" text-align: center;"> 
         <b>
         OUR SHIPPING POLICY IS: A subtotal $0 - $250 will be $20 shipping<br>
         A subtotal $251 or more will be $5 shipping<br>
