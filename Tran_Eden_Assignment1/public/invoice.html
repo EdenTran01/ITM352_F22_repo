@@ -13,8 +13,8 @@
     <script>
         let params = (new URL(document.location)).searchParams;
         for (i = 0; i < products.length; i++) {
-            quantities.push(params.get("quantity" + [i]));
-            products[i].quantity = params.get("quantity" + [i])
+            quantities.push(params.get("Quantity" + [i]));
+            products[i].quantity = params.get("Quantity" + [i])
         };
 
 
@@ -60,28 +60,32 @@
 </head>
 
 <body>
-    <table border="2">
-        <tr>
-            <th style="text-align: center;" width="43%">Item</th>
-            <th style="text-align: center;" width="11%">quantity</th>
-            <th style="text-align: center;" width="13%">price</th>
-            <th style="text-align: center;" width="54%">extended price</th>
-        </tr>
+<div class = "d-flex justify-content-center col" >
+    <div class="card text-center"  style="width: 40rem;">
+        <div class="text-dark text-start fs-2">
+            <tr>
+                <th style="text-align: center;" width="43%">Item</th>
+                <th style="text-align: center;" width="11%">quantity</th>
+                <th style="text-align: center;" width="13%">price</th>
+                <th style="text-align: center;" width="54%">extended price</th>
+              </tr>
+        </div>
 
         <script>
             this.innerHTML = generate_item_rows(quantities);
             // Compute Tax
             var taxRate = (5.75 / 100);
             var tax = subtotal * taxRate;
-
+            
             // Compute Shipping
-            if (subtotal < 50) {
-                shipping = 2;
-            } else if ((subtotal >= 50) && (subtotal < 100)) {
+            if (subtotal < 250) {
+                shipping = 20;
+                shipping = shipping + (subtotal * 0.05);
+            } else if (subtotal >= 250) {
                 shipping = 5;
-            } else {
-                shipping = subtotal * 0.05;
             }
+
+            
             // Grand Total
             var Total = tax + subtotal + shipping;
 
@@ -108,12 +112,17 @@
                   <td width="54%"><strong>$${Total.toFixed(2)}</strong></td>
                 </tr>`);
         </script>
-    </table>
+    </div>
+    <p>
+        <b>
+        OUR SHIPPING POLICY IS: A subtotal $0 - $250 will be $20 shipping<br>
+        A subtotal $251 or more will be $5 shipping<br>
+        Subtotals over $251 will be charged 5% of the subtotal amount
+        </b>
+    </p>
+</div>
 
-    <p><b>OUR SHIPPING POLICY IS: A subtotal $0 - $49.99 will be $2 shipping<br>
-            A subtotal $50 - $99.99 will be $5 shipping<br>
-            Subtotals over $100 will be charged 5% of the subtotal amount
-        </b></p>
+
 </body>
 
 </html>

@@ -35,7 +35,7 @@ var haserrors = false;
 var hasquantities = false;
 
 for(let i in products){
-   let q = request.body["quantity" + i];
+   let q = request.body["Quantity" + i];
    //Check if all values are NonNegInt or Quantities
    haserrors = haserrors || (NonNegInt (q) == false);
    //Check if quantites asked for are available
@@ -50,7 +50,6 @@ haserrors = haserrors || (hasquantities == false)
 
 
 
-
 //if there are no errors, then redirect to invoice with the quantities desired
 var qstring = qs.stringify(request.body);
 if(haserrors == false){
@@ -59,14 +58,9 @@ if(haserrors == false){
 else{
    response.redirect("./products_display.html?" + qstring)
 }
+ });
 
 
-    });
-
-   
-app.get('/test', function (request, response, next) {
-    response.send(request.method + ' to paths ' + request.path);
-});
 
 app.use(express.static(__dirname + '/public'));
 
@@ -83,3 +77,6 @@ function NonNegInt(arrayElement, returnErrors = false) {
 
    return (returnErrors ? errors : (errors.length == 0));
 }
+
+
+
