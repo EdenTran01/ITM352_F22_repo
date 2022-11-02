@@ -33,6 +33,8 @@ app.post('/process_form', function (request, response) {
 //Check if the quantities are valid
 var haserrors = false;
 var hasquantities = false;
+var errors = {}; //For Line 52, Look at GITHUB Professor PORT
+var q;
 
 for(let i in products){
    let q = request.body["Quantity" + i];
@@ -48,15 +50,24 @@ for(let i in products){
 //Check if any quantities were selected
 haserrors = haserrors || (hasquantities == false)
 
-
+// Check if qty is valid
+if(NonNegInt(q,false) == false) {
+   errors['quantity_error'+i] = NonNegInt(q,true);
+}
+    
+// it's an error not to select any quantities
+    if(hasquantities == false) {
+      errors['no_selections_error'] = "You need to select some items!";
+  }
 
 //if there are no errors, then redirect to invoice with the quantities desired
 var qstring = qs.stringify(request.body);
-if(haserrors == false){
+if(Object.keys(errors).length == 0){
    response.redirect("./invoice.html?" + qstring);
 }
 else{
-   response.redirect("./products_display.html?" + qstring)
+   response.redirect("./products_display.html?" + qstring + '&' + querystring.stringify({"errors_obj_JSON": JSON.stringify(errors)}))
+
 }
  });
 
@@ -66,11 +77,12 @@ app.use(express.static(__dirname + '/public'));
 
 app.listen(8080, () => console.log(`listening on port 8080`)); // note the use of an anonymous function here to do a callback
 
+
 function NonNegInt(q, returnErrors = false) {
-   errors = []; // assume no errors at first
+   let errors = []; // assume no errors at first
    if(q == "") {
       q = 0;
-   }
+   } // empty string = 0
    if (Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
    if (q < 0) errors.push('Negative value!'); // Check if it is non-negative
    if (parseInt(q) != q) errors.push('Not an integer!'); // Check that it is an integer

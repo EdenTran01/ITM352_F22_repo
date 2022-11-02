@@ -1,5 +1,27 @@
 <!-- Author: Eden Tran -->
 <!-- Code taken froom Store 1 WOD, then modified for Assignment 1-->
+<script>
+    let params = (new URL(document.location)).searchParams;
+    window.onload = function () {
+        console.log('in document.onload');
+        if (params.has('errors_obj_JSON')) {
+            var errors = JSON.parse(params.get('errors_obj_JSON'));
+            if (typeof errors['no_selections_error'] != 'undefined') {
+                alert(errors['no_selections_error']);
+            }
+            // put prev select quanties back into textbozes
+            for (let i in products) {
+                document.getElementById('quantity' + i).value = params.get('quantity' + i);
+                if (typeof errors['quantity_error'+i] != 'undefined') {
+                    document.getElementById(`quantity${i}_label`).innerHTML = params.get('quantity_error'+i);
+                }
+            }
+
+        }
+    };
+
+
+</script>
 <!DOCTYPE html>
 <html lang="en">
 

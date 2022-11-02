@@ -34,10 +34,11 @@
                     extended_price = 0 * products[i].price;
                     var msgerror = errors.join(`<br>`);
                 }
-
+                
+                //IR5 Small Icon Image displayed on the same line as the item name (Optional)
                 document.write(`
                     <tr>
-            <td width="43%">${products[i].model}</td>
+                <td> <img src="${products[i].image}" style="width:20%"> ${products[i].model}</td>
             <td align="center" width="11%">${products[i].quantity}<div style="color:red;">${msgerror}</td>
             <td width="18%">\$${products[i].price.toFixed(2)}</td>
             <td width="54%">\$${extended_price}</td>
