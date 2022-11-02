@@ -3,6 +3,7 @@
 <!-- Modifications to Table-->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +11,8 @@
     <title>Invoice</title>
     <!-- CSS only -->
     <!-- Taken from CSS bootsrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="./products_data.js"></script>
     <script>
         let params = (new URL(document.location)).searchParams;
@@ -34,7 +36,7 @@
                     extended_price = 0 * products[i].price;
                     var msgerror = errors.join(`<br>`);
                 }
-                
+
                 //IR5 Small Icon Image displayed on the same line as the item name (Optional)
                 document.write(`
                     <tr>
@@ -67,11 +69,13 @@
         background-color: wheat;
         /*background color change to wheat*/
     }
+
     table {
         background-color: white;
         box-shadow: 5px 5px 10px black;
         /*color change on textbox to white with a shadow to display emphasis*/
     }
+
     td {
         font-size: 18px;
         text-align: center;
@@ -81,12 +85,12 @@
 
 <body>
     <table style="border:5px solid black; margin-top:15% ;margin-left:auto;margin-right:auto; font-size: large; ">
-            <tr>
-                <th style="text-align: center;" width="43%">Item</th>
-                <th style="text-align: center;" width="11%">quantity</th>
-                <th style="text-align: center;" width="18%">price</th>
-                <th style="text-align: center;" width="54%">extended price</th>
-              </tr>
+        <tr>
+            <th style="text-align: center;" width="43%">Item</th>
+            <th style="text-align: center;" width="11%">quantity</th>
+            <th style="text-align: center;" width="18%">price</th>
+            <th style="text-align: center;" width="54%">extended price</th>
+        </tr>
         </div>
 
         <script>
@@ -94,7 +98,7 @@
             // Compute Tax
             var taxRate = (5.75 / 100);
             var tax = subtotal * taxRate;
-            
+
             // Compute Shipping
             if (subtotal < 250) {
                 shipping = 20;
@@ -103,7 +107,7 @@
                 shipping = 5;
             }
 
-            
+
             // Grand Total
             var Total = tax + subtotal + shipping;
 
@@ -130,16 +134,33 @@
                   <td width="54%"><strong>$${Total.toFixed(2)}</strong></td>
                 </tr>`);
         </script>
-        </table>
-        <br>
-    <p style=" text-align: center;"> 
+    </table>
+    <br>
+    <p style=" text-align: center;">
         <b>
-        OUR SHIPPING POLICY IS: A subtotal $0 - $250 will be $20 shipping<br>
-        A subtotal $251 or more will be $5 shipping<br>
-        Subtotals over $251 will be charged 5% of the subtotal amount
+            OUR SHIPPING POLICY IS: A subtotal $0 - $250 will be $20 shipping<br>
+            A subtotal $251 or more will be $5 shipping<br>
+            Subtotals over $251 will be charged 5% of the subtotal amount
         </b>
     </p>
-</div>
+    <footer>
+        <style>
+            footer {
+                text-align: center;
+            }
+
+            footer input {
+                font-size: x-large;
+                font-weight: bold;
+                border: 3px solid black;
+                box-shadow: 5px 5px 10px black;
+                /*creates border,  a shadow on box to show emphasis on purchase btton, font size change to make box bigger*/
+            }
+        </style>
+        <input type="button" class="button" value="Return to Products Page"
+            onclick="window.location.href = 'products_display.html';" style="background-color:white">
+    </footer>
+    </div>
 
 
 </body>

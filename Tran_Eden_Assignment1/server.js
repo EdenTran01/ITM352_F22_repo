@@ -62,22 +62,21 @@ for(let i in products){
 //Check if any quantities were selected
 haserrors = haserrors || (hasquantities == false)
 
-//Refereced from Lab 12 Exercise 5: Passing data to client from a server
+//Code taken from Lab 12 Ex5
 if (errors.length == 0) {
    if (hasquantities== true) {
       //Will direct user to invoice if quantity input is valid 
       //Referenced from Lab 12
        response.redirect("./invoice.html?" + qs.stringify(request.body));
    }else {
-      //Will keep user on the page if quantity inputted is invalid and returns error in URL and allows user to input new quantity 
-       response.redirect("./products_display.html?" + `&inputError=Please enter a quantity`);
+      //User will be kept on the page if the input is invalid
+       response.redirect("./products_display.html?" + `&textError=Please enter a valid quantity`);
 
    }
 } 
 else {
-  //Will keep user on the page if quantity inputted is invalid and returns error in URL and allows user to input new quantity 
-   response.redirect("./products_display.html?" + qs.stringify(request.body) 
-       + `&error=Please correct all errors`);
+  //User will be kept on the page if the input is invalid
+   response.redirect("./products_display.html?" + `&error=Please correct all errors`);
 }
 
  });

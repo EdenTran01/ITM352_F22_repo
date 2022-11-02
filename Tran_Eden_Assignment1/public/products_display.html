@@ -4,13 +4,12 @@
    let params = (new URL(document.location)).searchParams;
 
   
-// When the window loads, perform the following function:
+// On window load, function will be preformed
 window.onload = function() {
-    // If the url has 'inputError', it means that there is a negative, non-integer, or non-number value
-        // Look in server.js the last else if if you want to see where the key: inputError and value pair is specified
-    if(params.has('inputError')) {
+    // URL contains 
+    if(params.has('textError')) {
         // Make an alert with the value of key: inputError, which is "Please correct all errors"
-        alert(params.get('inputError'));
+        alert(params.get('textError'));
         for (let i in products) {
             // Display the error message in the label
             document.getElementById(`Quantity${i}_label`).innerHTML = params.get(`Quantity_error${i}`);
