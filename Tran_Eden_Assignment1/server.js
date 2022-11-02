@@ -33,42 +33,53 @@ app.post('/process_form', function (request, response) {
 //Check if the quantities are valid
 var haserrors = false;
 var hasquantities = false;
-var errors = {}; //For Line 52, Look at GITHUB Professor PORT
-var q;
+var errors = []; 
+
 
 for(let i in products){
    let q = request.body["Quantity" + i];
+   if (typeof request.body != 'undefined') {
+         //Check if quantity > 0
+      var hasquantities = hasquantities || (q > 0);
+  }
    //Check if all values are NonNegInt or Quantities
    haserrors = haserrors || (NonNegInt (q) == false);
+   //Pushes errors into errors array
+   errors = NonNegInt(q, true)
    //Check if quantites asked for are available
    haserrors = haserrors || (q > products[i].quantity_available);
-   //Check if quantity > 0
-   hasquantities = hasquantities || (q > 0);
-   console.log(hasquantities, haserrors);
+
+   //# of Products that get inputed into textbox get removed from the quantity avaialable
+   if (hasquantities == true) {
+      if (errors.length == 0) {
+          products[i].total_sold = Number(q);
+          var remainder = products[i].quantity_available;
+          products[i].quantity_available = remainder - Number(q);
+      } 
+  }
 }
 
 //Check if any quantities were selected
 haserrors = haserrors || (hasquantities == false)
 
-// Check if qty is valid
-if(NonNegInt(q,false) == false) {
-   errors['quantity_error'+i] = NonNegInt(q,true);
-}
-    
-// it's an error not to select any quantities
-    if(hasquantities == false) {
-      errors['no_selections_error'] = "You need to select some items!";
-  }
+//Refereced from Lab 12 Exercise 5: Passing data to client from a server
+if (errors.length == 0) {
+   if (hasquantities== true) {
+      //Will direct user to invoice if quantity input is valid 
+      //Referenced from Lab 12
+       response.redirect("./invoice.html?" + qs.stringify(request.body));
+   }else {
+      //Will keep user on the page if quantity inputted is invalid and returns error in URL and allows user to input new quantity 
+       response.redirect("./products_display.html?" + `&inputError=Please enter a quantity`);
 
-//if there are no errors, then redirect to invoice with the quantities desired
-var qstring = qs.stringify(request.body);
-if(Object.keys(errors).length == 0){
-   response.redirect("./invoice.html?" + qstring);
+   }
+} 
+else {
+  //Will keep user on the page if quantity inputted is invalid and returns error in URL and allows user to input new quantity 
+   response.redirect("./products_display.html?" + qs.stringify(request.body) 
+       + `&error=Please correct all errors`);
 }
-else{
-   response.redirect("./products_display.html?" + qstring + '&' + querystring.stringify({"errors_obj_JSON": JSON.stringify(errors)}))
 
-}
  });
 
 

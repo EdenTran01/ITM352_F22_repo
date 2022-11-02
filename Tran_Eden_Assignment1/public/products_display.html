@@ -1,24 +1,31 @@
 <!-- Author: Eden Tran -->
 <!-- Code taken froom Store 1 WOD, then modified for Assignment 1-->
 <script>
-    let params = (new URL(document.location)).searchParams;
-    window.onload = function () {
-        console.log('in document.onload');
-        if (params.has('errors_obj_JSON')) {
-            var errors = JSON.parse(params.get('errors_obj_JSON'));
-            if (typeof errors['no_selections_error'] != 'undefined') {
-                alert(errors['no_selections_error']);
-            }
-            // put prev select quanties back into textbozes
-            for (let i in products) {
-                document.getElementById('quantity' + i).value = params.get('quantity' + i);
-                if (typeof errors['quantity_error'+i] != 'undefined') {
-                    document.getElementById(`quantity${i}_label`).innerHTML = params.get('quantity_error'+i);
-                }
-            }
+   let params = (new URL(document.location)).searchParams;
 
+  
+// When the window loads, perform the following function:
+window.onload = function() {
+    // If the url has 'inputError', it means that there is a negative, non-integer, or non-number value
+        // Look in server.js the last else if if you want to see where the key: inputError and value pair is specified
+    if(params.has('inputError')) {
+        // Make an alert with the value of key: inputError, which is "Please correct all errors"
+        alert(params.get('inputError'));
+        for (let i in products) {
+            // Display the error message in the label
+            document.getElementById(`Quantity${i}_label`).innerHTML = params.get(`Quantity_error${i}`);
+            // Display what the user inputted in the value of the input box by getting the value from the URL that matches with key 'quantity${i}'
+                // In order to do this, I gave the form an id 'inputForm' and changed the value of the input boxes using their id
+            Form[`qtyin${i}`].value = params.get(`Quantity${i}`);
         }
-    };
+    }
+    // If the url has the key 'noQuantities', it means that there are no quantities inputted
+    // If so, send an alert with the value 'Please enter a quantity'
+        // Look in server.js in the first else if if you want to see where the key: noQuantities and value pair is specified
+    if(params.has('noQuantities')) {
+        alert(params.get('noQuantities'));
+    }
+}
 
 
 </script>
@@ -91,7 +98,7 @@
             <h1 class="d-flex justify-content-center">Consoles</h1>
         </div>
     </nav>
-    <form action="./process_form" method="POST">
+    <form action="./process_form" method="POST" id="Form">
         <div class="d-flex justify-content-evenly row">
             <script>
                 //Taken from Store1 WOD and Added Quantity Avail label
