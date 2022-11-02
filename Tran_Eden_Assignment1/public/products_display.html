@@ -3,26 +3,18 @@
 <script>
    let params = (new URL(document.location)).searchParams;
 
-  
+//Referenced from Lab 12 info_server2c.js, with modification
 // On window load, function will be preformed
 window.onload = function() {
-    // URL contains 
+    // URL contains 'textError' means that there is either a negtaive, noninteger, or a letter 
     if(params.has('textError')) {
-        // Make an alert with the value of key: inputError, which is "Please correct all errors"
+        // Generates an alert with the value textError, Alert says "Please enter a valid quantity"
         alert(params.get('textError'));
         for (let i in products) {
-            // Display the error message in the label
+            // Quantity label will display the error
             document.getElementById(`Quantity${i}_label`).innerHTML = params.get(`Quantity_error${i}`);
-            // Display what the user inputted in the value of the input box by getting the value from the URL that matches with key 'quantity${i}'
-                // In order to do this, I gave the form an id 'inputForm' and changed the value of the input boxes using their id
             Form[`qtyin${i}`].value = params.get(`Quantity${i}`);
         }
-    }
-    // If the url has the key 'noQuantities', it means that there are no quantities inputted
-    // If so, send an alert with the value 'Please enter a quantity'
-        // Look in server.js in the first else if if you want to see where the key: noQuantities and value pair is specified
-    if(params.has('noQuantities')) {
-        alert(params.get('noQuantities'));
     }
 }
 

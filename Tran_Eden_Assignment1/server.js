@@ -76,7 +76,7 @@ if (errors.length == 0) {
 } 
 else {
   //User will be kept on the page if the input is invalid
-   response.redirect("./products_display.html?" + `&error=Please correct all errors`);
+   response.redirect("./products_display.html?" + `&error=Please enter a proper quantity`);
 }
 
  });
