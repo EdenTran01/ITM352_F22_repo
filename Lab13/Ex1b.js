@@ -1,0 +1,2 @@
+var user_reg_data = require('./user_data.json'); //if you have a JSON object, you can directly create it in JavaScript by giving/requiring the JSON file. JavaScript can generate and read JSON. 
+console.log(user_reg_data["kazman"].password);
