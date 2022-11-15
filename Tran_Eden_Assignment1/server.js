@@ -3,7 +3,7 @@
 var express = require('express');
 var app = express();
 var qs = require("querystring")
-   
+
 app.use(express.urlencoded({ extended: true }));
 
 //respond to any req for any path
@@ -24,62 +24,62 @@ app.get("/product_data.js", function (request, response, next) {
 
 
 //to track quantity sold
-products.forEach( (prod,i) => {prod.total_sold = 0});
+products.forEach((prod, i) => { prod.total_sold = 0 });
 
 //Taken from Server Side Processing Lab Ex6 Task 2
 app.use(express.urlencoded({ extended: true }));
 app.post('/process_form', function (request, response) {
    console.log(request.body);
-//Check if the quantities are valid
-var haserrors = false;
-var hasquantities = false;
-var errors = []; 
+   //Check if the quantities are valid
+   var haserrors = false;
+   var hasquantities = false;
+   var errors = [];
 
 
-for(let i in products){
-   let q = request.body["Quantity" + i];
-   if (typeof request.body != 'undefined') {
+   for (let i in products) {
+      let q = request.body["Quantity" + i];
+      if (typeof request.body != 'undefined') {
          //Check if quantity > 0
-      var hasquantities = hasquantities || (q > 0);
-  }
-   //Check if all values are NonNegInt or Quantities
-   haserrors = haserrors || (NonNegInt (q) == false);
-   //Pushes errors into errors array
-   errors = NonNegInt(q, true)
-   //Check if quantites asked for are available
-   haserrors = haserrors || (q > products[i].quantity_available);
+         var hasquantities = hasquantities || (q > 0);
+      }
+      //Check if all values are NonNegInt or Quantities
+      haserrors = haserrors || (NonNegInt(q) == false);
+      //Pushes errors into errors array
+      errors = NonNegInt(q, true)
+      //Check if quantites asked for are available
+      haserrors = haserrors || (q > products[i].quantity_available);
 
-   //# of Products that get inputed into textbox get removed from the quantity avaialable
-   if (hasquantities == true) {
-      if (errors.length == 0) {
-          products[i].total_sold = Number(q);
-          var remainder = products[i].quantity_available;
-          products[i].quantity_available = remainder - Number(q);
-      } 
-  }
-}
-
-//Check if any quantities were selected
-haserrors = haserrors || (hasquantities == false)
-
-//Code taken from Lab 12 Ex5
-if (errors.length == 0) {
-   if (hasquantities== true) {
-      //Will direct user to invoice if quantity input is valid 
-      //Referenced from Lab 12
-       response.redirect("./invoice.html?" + qs.stringify(request.body));
-   }else {
-      //User will be kept on the page if the input is invalid
-       response.redirect("./products_display.html?" + `&textError=Please enter a valid quantity`);
-
+      //# of Products that get inputed into textbox get removed from the quantity avaialable
+      if (hasquantities == true) {
+         if (errors.length == 0) {
+            products[i].total_sold = Number(q);
+            var remainder = products[i].quantity_available;
+            products[i].quantity_available = remainder - Number(q);
+         }
+      }
    }
-} 
-else {
-  //User will be kept on the page if the input is invalid
-   response.redirect("./products_display.html?" + `&error=Please enter a proper quantity`);
-}
 
- });
+   //Check if any quantities were selected
+   haserrors = haserrors || (hasquantities == false)
+
+   //Code taken from Lab 12 Ex5
+   if (errors.length == 0) {
+      if (hasquantities == true) {
+         //Will direct user to invoice if quantity input is valid 
+         //Referenced from Lab 12
+         response.redirect("./invoice.html?" + qs.stringify(request.body));
+      } else {
+         //User will be kept on the page if the input is invalid
+         response.redirect("./products_display.html?" + `&textError=Please enter a valid quantity`);
+
+      }
+   }
+   else {
+      //User will be kept on the page if the input is invalid
+      response.redirect("./products_display.html?" + `&error=Please enter a proper quantity`);
+   }
+
+});
 
 
 
@@ -90,7 +90,7 @@ app.listen(8080, () => console.log(`listening on port 8080`)); // note the use o
 
 function NonNegInt(q, returnErrors = false) {
    let errors = []; // assume no errors at first
-   if(q == "") {
+   if (q == "") {
       q = 0;
    } // empty string = 0
    if (Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
