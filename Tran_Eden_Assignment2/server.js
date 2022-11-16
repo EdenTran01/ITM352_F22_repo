@@ -127,38 +127,48 @@ if (fs.existsSync(filename)) {
 
 //Taken from Assignment 2 code examples and from Eden Tran's Spring 2022 Github
 app.post("/login", function (request, response) {
-   var errors = [];
-   
-   
-       //Process login form POST and redirect to logged in page if ok, back to login page if not
-       //Make it so capitalization is irrelevant for email
-       let login_email = request.body['email'].toLowerCase();
-       let login_password = request.body['password'];
-   
-       //Check if email exists
-       if (typeof user_data[login_email] != 'undefined') {
-           //Then checks password entered matches stored password
-           if (user_data[login_email].password == login_password) {
-               //Redirects to the invoice page and displays items purchased
-               request.query['email'] = login_email;
-               response.redirect('./invoice.html?' + qs.stringify(request.query));
-               return;
-           }
-           else {
-               //If password is incorrect
-               errors.push('Incorrect password');
-           }
-       }
-       else {
-           //If email has not been created
-           errors.push(`${login_email} does not exist`);
-       }
-   
-       //If there are errors, send back to login page with errors
-       request.query['email'] = login_email;
-       request.query['errors'] = JSON.stringify(errors);
-       response.redirect(`./login.html?` + qs.stringify(request.query));
-   });
+
+   //Process login form POST and redirect to logged in page if ok, back to login page if not
+   //Make it so capitalization is irrelevant for email
+   let login_email = request.body['email'].toLowerCase();
+   let login_password = request.body['password'];
+
+   //Check if email exists
+   if (typeof user_data[login_email] != 'undefined') {
+      //Then checks password entered matches stored password
+      if (user_data[login_email].password == login_password) {
+         //stores uder info with in temp_info and sends to the invoice
+         temp_info['email'] = login_email;
+
+         // If the user's current status is "loggedout", change it to "loggedin" and push them to the status array
+         status[login_email] = true;
+         temp_info['name'] = user_data[login_email].name;
+
+         //Counts how many users are logged in
+         temp_info['users'] = Object.keys(status).length
+
+         let params = new URLSearchParams(temp_info);
+         // Send to invoice page if login successful
+         response.redirect('/invoice.html?' + qs.stringify(request.query));
+         // ends process
+         return;
+         // if the password does not match the password entered then error message for wrong password
+      } else {
+
+         //Redirects to the invoice page and displays items purchased
+         request.query['email'] = login_email;
+         request.query.LoginError = 'Invalid password!';
+      }
+   } else {
+      // Error message for user that doesn't exist
+      request.query.LoginError = 'Invalid username!';
+   }
+
+   //If there are errors, send back to login page with errors
+   params = new URLSearchParams(request.query);
+   request.query['email'] = login_email;
+   response.redirect(`./login.html?` + qs.stringify(request.query));
+});
 
 //---------------------Registration---------------------//
 
@@ -264,7 +274,7 @@ app.post("/updatepwd", function (request, response) {
        if (user_data[login_email].password == login_password) {
 
            //Require a minimum of 8 characters
-           if (request.body.new_password.length < 8) {
+           if (request.body.new_password.length < 10) {
                errors.push('Password must have a minimum of 8 characters.');
            }
 
@@ -313,6 +323,7 @@ app.post("/updatepwd", function (request, response) {
    request.query['errors'] = JSON.stringify(errors);
    response.redirect(`./updatepwd.html?` + qs.stringify(request.query));
 });
+
 
 
 
