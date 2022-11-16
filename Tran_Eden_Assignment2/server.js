@@ -6,6 +6,19 @@ var qs = require("querystring")
 
 app.use(express.urlencoded({ extended: true }));
 
+// Stores User Information
+var filename = __dirname + '/user_data.json';
+
+const fs = require("fs");
+if (fs.existsSync(filename)) {
+    // this is from lab 14 ex1b.js
+    var user_info = fs.readFileSync(filename, 'utf-8');
+    var user_data = JSON.parse(user_info);
+}
+else {
+    console.log(filename + ' does not exist.');
+} 
+
 //respond to any req for any path
 app.all('*', function (request, response, next) {
    console.log(request.method + ' to ' + request.path);

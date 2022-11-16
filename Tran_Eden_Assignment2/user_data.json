@@ -1,1 +1,5 @@
-{"itm352@hawaii.edu":{"name":"ITM 352","password":"grader"},"edent@hawaii.edu":{"name":"Eden Tran","password":"hello"},"test@hawaii.edu":{"name":"test","password":"thisisatest123"},"test23@hawaii.edu":{"name":"test23","password":"thisisatest23"}}
+{
+"itm352@hawaii.edu":{"name":"ITM 352","password":"grader"},
+"edent@hawaii.edu":{"name":"Eden Tran","password":"hello"},
+"test@hawaii.edu":{"name":"test","password":"thisisatest123"}
+}
