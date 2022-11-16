@@ -6,18 +6,18 @@ var qs = require("querystring")
 
 app.use(express.urlencoded({ extended: true }));
 
-// Stores User Information
-var filename = __dirname + '/user_data.json';
+// Stores user information, Code taken from Port's examples
+var fs = require('fs');
+const { request } = require('http');
+const { response } = require('express');
+var filename = './user_data.json';
 
-const fs = require("fs");
-if (fs.existsSync(filename)) {
-    // this is from lab 14 ex1b.js
-    var user_info = fs.readFileSync(filename, 'utf-8');
-    var user_data = JSON.parse(user_info);
-}
-else {
-    console.log(filename + ' does not exist.');
-} 
+//used to store quantity data from products disiplay page
+//assume empty at first
+var temp_info = {};
+
+// Create an object to keep count of how many users are logged in
+var status = [];
 
 //respond to any req for any path
 app.all('*', function (request, response, next) {
@@ -63,11 +63,10 @@ app.post('/process_form', function (request, response) {
    }
 
 
-
    //Code taken from Lab 12 Ex5
    if (!haserrors) {
       if (hasquantities == true) {
-         //Will direct user to invoice if quantity input is valid 
+         //Will direct user to login if quantity input is valid 
          //Referenced from Lab 12
          //Remove item sold from inventory
          for (let i in products) {
@@ -89,179 +88,6 @@ app.post('/process_form', function (request, response) {
 
 });
 
-//Log-In
-//borrowed from lab 14 ex4.js with some modifications made
-app.post("/login", function (request, response) {
-   var errors = [];
-
-
-   //Process login form POST and redirect to logged in page if ok, back to login page if not
-   //Make it so capitalization is irrelevant for email
-   let login_email = request.body['email'].toLowerCase();
-   let login_password = request.body['password'];
-
-   //Check if email exists
-   if (typeof user_data[login_email] != 'undefined') {
-      //Then checks password entered matches stored password
-      if (user_data[login_email].password == login_password) {
-         //Redirects to the invoice page and displays items purchased
-         request.query['email'] = login_email;
-         response.redirect('./invoice.html?' + qs.stringify(request.query));
-         return;
-      }
-      else {
-         //If password is incorrect
-         errors.push('Incorrect password');
-      }
-   }
-   else {
-      //If email has not been created
-      errors.push(`${login_email} does not exist`);
-   }
-
-   //If there are errors, send back to login page with errors
-   request.query['email'] = login_email;
-   request.query['errors'] = JSON.stringify(errors);
-   response.redirect(`./login.html?` + qs.stringify(request.query));
-});
-
-
-//Registration
-//taken from lab 14 ex4.js, some modifications made
-app.post("/register", function (request, response) {
-   var errors = [];
-   let email = request.body['email'].toLowerCase();
-   let name = request.body['name'];
-
-   //Process a simple register form
-   //capitalization becomes irrelevant for email
-   var new_email = request.body['email'].toLowerCase();
-
-   //Require a specific email format
-   if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(request.body.email) == false) {
-      errors.push('Please enter a valid email address');
-   } else if (request.body.email.length == 0) {
-      errors.push('Please enter an email');
-   }
-
-   //if a user's email is not undefined meanning that it is already declared, this error will display
-   if (typeof user_data[new_email] != 'undefined') {
-      errors.push('Email is already taken.');
-   }
-
-   //Name Check
-   if (typeof request.body.name != 'undefined') {
-      if (/^[A-Za-z ]+$/.test(request.body.name) == false) {
-         errors.push('Please enter a valid name.');
-      }
-   } else if (request.body.name.length == 0) {
-      errors.push('Please enter a name.');
-   }
-
-   //if a user's password does not have at least 8 characters, this error will display
-   if (request.body.new_password.length < 8) {
-      errors.push('Password must have a minimum of 8 characters.');
-   }
-
-   //if a user's password and repeat password do not match, this error will display
-   if (request.body.new_password !== request.body.repeat_password) {
-      errors.push('Passwords must match');
-   }
-
-   let params = new URLSearchParams(request.query);
-
-   //If errors is empty
-   if (JSON.stringify(errors) == '[]') {
-      //Write data and send to invoice.html
-      user_data[new_email] = {};
-      user_data[new_email].name = request.body.name;
-      user_data[new_email].password = request.body.new_password;
-
-      //Writes user information into file
-      fs.writeFileSync(filename, JSON.stringify(user_data), "utf-8");
-
-      //Add email to query
-      params.append('email', request.body.email);
-      response.redirect('./invoice.html?' + params.toString());
-      return;
-   }
-   else {
-      //If there are errors, send back to register page with errors
-      request.query['email'] = email;
-      request.query['name'] = name;
-      request.query['errors'] = JSON.stringify(errors);
-      response.redirect(`./registration.html?` + qs.stringify(request.query));
-   }
-});
-
-
-//Password Change
-//Taken from my Lab 14 Ex4.js and modified
-app.post("/updatepwd", function (request, response) {
-   var errors = [];
-
-   //Process login form POST and redirect to logged in page if ok, back to login page if not
-   //Make it so capitalization is irrelevant for email
-   var login_email = request.body['email'].toLowerCase();
-   var login_password = request.body['password'];
-
-   //Check if email exists
-   if (typeof user_data[login_email] != 'undefined') {
-      //Then checks password entered matches stored password
-      if (user_data[login_email].password == login_password) {
-
-         //Require a minimum of 8 characters
-         if (request.body.new_password.length < 8) {
-            errors.push('Password must have a minimum of 8 characters.');
-         }
-
-         //Confirm that both passwords were entered correctly
-         if (request.body.new_password !== request.body.repeat_new_password) {
-            errors.push('Passwords must match');
-         }
-         if (request.body.new_password == login_password) {
-            errors.push('New password cannot be the same as old password');
-         }
-
-         if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(request.body.email) == false) {
-            errors.push('Please enter a valid email address');
-         } else if (request.body.email.length == 0) {
-            errors.push('Please enter an email');
-         }
-
-         let params = new URLSearchParams(request.query);
-
-         //If errors is empty
-         if (JSON.stringify(errors) == '[]') {
-            //Write data and send to invoice.html
-            user_data[login_email].password = request.body.new_password
-
-            //Writes user information into file
-            fs.writeFileSync(filename, JSON.stringify(user_data), "utf-8");
-
-            //Add email to query
-            params.append('email', request.body.email);
-            response.redirect('./invoice.html?' + params.toString());
-            return;
-         }
-      }
-      else {
-         //If password is incorrect
-         errors.push('Incorrect password');
-      }
-   }
-   else {
-      //If email has not been created
-      errors.push(`${login_email} does not exist`);
-   }
-
-   //If there are errors, send back to new password page with errors
-   request.query['email'] = login_email;
-   request.query['errors'] = JSON.stringify(errors);
-   response.redirect(`./updatepwd.html?` + qs.stringify(request.query));
-});
-
-
 app.use(express.static(__dirname + '/public'));
 
 app.listen(8080, () => console.log(`listening on port 8080`)); // note the use of an anonymous function here to do a callback
@@ -278,6 +104,216 @@ function NonNegInt(q, returnErrors = false) {
 
    return (returnErrors ? errors : (errors.length == 0));
 }
+
+if (fs.existsSync(filename)) {
+   // Code taken from Lab13 Exercise 3a
+   var user_info = fs.readFileSync(filename, 'utf-8');
+   //parse user_data
+   var user_data = JSON.parse(user_info);
+
+   // For every user that is already in the system
+   for (let i = 0; i < Object.keys(user_data).length; i++) {
+      // If the user's status is set to "loggedin", push them to the status array
+      if (user_data[Object.keys(user_data)[i]].status == "loggedin") {
+         status.push(Object.keys(user_data)[i]);
+      }
+   }
+} else {
+   console.log(filename + ' does not exist.');
+   users_reg_data = {};
+}
+
+//---------------------Log-in---------------------//
+
+//Taken from Assignment 2 code examples and from Eden Tran's Spring 2022 Github
+app.post("/login", function (request, response) {
+   var errors = [];
+   
+   
+       //Process login form POST and redirect to logged in page if ok, back to login page if not
+       //Make it so capitalization is irrelevant for email
+       let login_email = request.body['email'].toLowerCase();
+       let login_password = request.body['password'];
+   
+       //Check if email exists
+       if (typeof user_data[login_email] != 'undefined') {
+           //Then checks password entered matches stored password
+           if (user_data[login_email].password == login_password) {
+               //Redirects to the invoice page and displays items purchased
+               request.query['email'] = login_email;
+               response.redirect('./invoice.html?' + qs.stringify(request.query));
+               return;
+           }
+           else {
+               //If password is incorrect
+               errors.push('Incorrect password');
+           }
+       }
+       else {
+           //If email has not been created
+           errors.push(`${login_email} does not exist`);
+       }
+   
+       //If there are errors, send back to login page with errors
+       request.query['email'] = login_email;
+       request.query['errors'] = JSON.stringify(errors);
+       response.redirect(`./login.html?` + qs.stringify(request.query));
+   });
+
+//---------------------Registration---------------------//
+
+app.post("/register", function (request, response) {
+   var errors = [];
+   let email = request.body['email'].toLowerCase();
+   let name = request.body['name'];
+
+   //Process a simple register form
+   //capitalization becomes irrelevant for email
+   var new_email = request.body['email'].toLowerCase();
+
+   //Require a specific email format
+   if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(request.body.email) == false) {
+       errors.push('Please enter a valid email address');
+   } else if (request.body.email.length == 0) {
+       errors.push('Please enter an email'); 
+   }
+
+   //if a user's email is not undefined meanning that it is already declared, this error will display
+   if (typeof user_data[new_email] != 'undefined') { 
+       errors.push('Email is already taken.');
+   }
+
+   //Name Check
+   if (typeof request.body.name != 'undefined') {
+       if (/^[A-Za-z ]+$/.test(request.body.name) == false) {
+           errors.push('Please enter a valid name.'); 
+       }
+   } else if (request.body.name.length == 0) {
+       errors.push('Please enter a name.');
+   }
+
+   //if a user's password does not have at least 10 characters, this error will display
+   if (request.body.new_password.length < 10) {
+       errors.push('Password must have a minimum of 10 characters.');
+   }
+
+   //if a user's password and repeat password do not match, this error will display
+   if (request.body.new_password !== request.body.repeat_password) {
+       errors.push('Passwords must match');
+   }
+
+   let params = new URLSearchParams(request.query);
+
+   //If errors is empty
+   if (JSON.stringify(errors) == '[]') {
+       //Write data and send to invoice.html
+       user_data[new_email] = {};
+       user_data[new_email].name = request.body.name;
+       user_data[new_email].password = request.body.new_password;
+
+       //Writes user information into file
+       fs.writeFileSync(filename, JSON.stringify(user_data), "utf-8");
+
+       //Add email to query
+       params.append('email', request.body.email);
+       response.redirect('./invoice.html?' + params.toString());
+       return;
+   }
+   else {
+       //If there are errors, send back to register page with errors
+       request.query['email'] = email;
+       request.query['name'] = name;
+       request.query['errors'] = JSON.stringify(errors);
+       response.redirect(`./registration.html?` + qs.stringify(request.query));
+   }
+});
+
+
+//Trashing login in email
+app.post('/process_logout', function (request, response) {
+   // Get the user's email from the hidden textbox
+   var email = request.body.email.toLowerCase();
+
+
+   /* Also, delete all of the info that you stored in temp_info because the user it's no longer needed if the user is logged out of the system*/
+   delete temp_info['email'];
+   delete temp_info['name'];
+   delete temp_info['users'];
+   //Delete email in the object
+   delete status.email
+   // Log Out Status
+   user_data[email].status = "loggedout";
+   // redirect the user to index if they choose to log out
+   response.redirect('/index.html?');
+
+
+})
+
+//--------------------Password Change--------------------//
+app.post("/updatepwd", function (request, response) {
+   var errors = [];
+
+   //Process login form POST and redirect to logged in page if ok, back to login page if not
+   //Make it so capitalization is irrelevant for email
+   var login_email = request.body['email'].toLowerCase();
+   var login_password = request.body['password'];
+
+   //Check if email exists
+   if (typeof user_data[login_email] != 'undefined') {
+       //Then checks password entered matches stored password
+       if (user_data[login_email].password == login_password) {
+
+           //Require a minimum of 8 characters
+           if (request.body.new_password.length < 8) {
+               errors.push('Password must have a minimum of 8 characters.');
+           }
+
+           //Confirm that both passwords were entered correctly
+           if (request.body.new_password !== request.body.repeat_new_password) {
+               errors.push('Passwords must match');
+           }
+           if (request.body.new_password == login_password) {
+               errors.push('New password cannot be the same as old password');
+           }
+
+           if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(request.body.email) == false) {
+               errors.push('Please enter a valid email address');
+           } else if (request.body.email.length == 0) {
+               errors.push('Please enter an email');
+           }
+
+           let params = new URLSearchParams(request.query);
+
+           //If errors is empty
+           if (JSON.stringify(errors) == '[]') {
+               //Write data and send to invoice.html
+               user_data[login_email].password = request.body.new_password
+
+               //Writes user information into file
+               fs.writeFileSync(filename, JSON.stringify(user_data), "utf-8");
+
+               //Add email to query
+               params.append('email', request.body.email);
+               response.redirect('./invoice.html?' + params.toString());
+               return;
+           }
+       }
+       else {
+           //If password is incorrect
+           errors.push('Incorrect password');
+       }
+   }
+   else {
+       //If email has not been created
+       errors.push(`${login_email} does not exist`);
+   }
+
+   //If there are errors, send back to new password page with errors
+   request.query['email'] = login_email;
+   request.query['errors'] = JSON.stringify(errors);
+   response.redirect(`./updatepwd.html?` + qs.stringify(request.query));
+});
+
 
 
 
