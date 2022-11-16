@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./products_data.js"></script>
+
+    <!-- Link from CSS Bootstrap -->
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <script>
+        //alert with errors
+//Borrowed from Kobi Kinoshita Spring 2022
+let params = (new URL(document.location)).searchParams;
+    window.onload = function errors() {
+      //if there is an incorrect email or password
+      if (params.has('errors')) {
+        //makes the email sticky and puts it back into the textbox 
+        email.value = params.get('email');
+        insert_name.value = params.get('name');
+        var errors = JSON.parse(params.get("errors")) 
+        //alert message becomes displayed and explains what the specific errors are
+        alert(errors.join('\n'));
+      }
+    }
+      </script>
+
+      <span><br>
+        <script>
+          document.write(`<form action="/register${location.search}" method="POST">`)
+        </script>
+        <p>Register</p>
+        <b><span id="email_message"></span>
+          <span id="name_message"></span>
+          <span id="password_message"></span>
+          <span id="password2_message"></span></b><br>
+        <input type="text" id="email" name="email" size="40" placeholder="enter email"><br />
+        <input type="text" id="insert_name" name="name" size="40" placeholder="enter full name"><br />
+        <input type="password" id="pw1" name="new_password" size="40" placeholder="enter password"><br />
+        <input type="password" id="pw2" name="repeat_password" size="40" placeholder="reenter password"><br />
+        <input type="submit" value="Sign Up" id="submit" style="background-color:forestgreen">
+        </form>
+        <br>
+        <button type="button" onclick="location.href = 'login.html' + document.location.search" style="background-color:forestgreen">Already have an account? Sign In Here</button>
+        <button type="button" onclick="location.href = 'updatepwd.html' + document.location.search;" style="background-color:forestgreen">Want to change your password? Click Here</button>
+        <br>
+      </span>    
+    </div>
+
+</body>
+</html>

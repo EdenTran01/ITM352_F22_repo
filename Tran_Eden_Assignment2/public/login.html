@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./products_data.js"></script>
+
+    <!-- Link from CSS Bootstrap -->
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <script>
+        //Borrowed from Kobi Kinoshita Spring 2022
+        let params = (new URL(document.location)).searchParams;
+        window.onload = function errors() {
+            //if there is an incorrect email or password
+            if (params.has('errors')) {
+                //makes the email sticky and puts it back into the textbox 
+                email.value = params.get('email');
+                var errors = JSON.parse(params.get("errors"))
+                //alert message becomes displayed and explains what the specific errors are
+                alert(errors);
+            }
+        }
+    </script>
+
+    <span><br>
+        <!--Borrowed from Kobi Kinoshita Spring 2022-->
+        <script>
+            document.write(`<form action="/login${location.search}" method="POST">`) //keep the quantities from the products_display page
+        </script>
+        <p>Log In</p>
+        <b><span id="email_message"></span>
+            <span id="password_message"></span></b><br>
+        <input type="text" id="email" name="email" size="40" placeholder="enter email"><br />
+        <input type="password" id="pw" name="password" size="40" placeholder="enter password"><br />
+        <input type="submit" value="Sign In" id="submit" style="background-color:forestgreen">
+        </form>
+        <br>
+        <button type="button" onclick="window.location.href = 'updatepwd.html' + document.location.search;"
+            style="background-color:forestgreen">Want to change your password? Click Here</button>
+        <button type="button" onclick="window.location.href = 'registration.html' + document.location.search;"
+            style="background-color:forestgreen">Don't have an account? Sign Up Here</button>
+        <br>
+    </span>
+    </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>
