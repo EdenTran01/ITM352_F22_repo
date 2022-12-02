@@ -1,6 +1,5 @@
 //Taken from store 1 WOD and modified
 //Author: Eden Tran 
-var quantities = []
 var products = [
 
     {
