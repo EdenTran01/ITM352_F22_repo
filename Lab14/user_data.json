@@ -1,1 +1,5 @@
-{"itm352@hawaii.edu":{"name":"ITM 352","password":"grader"},"edent@hawaii.edu":{"name":"Eden Tran","password":"EdenTran123"},"test@hawaii.edu":{"name":"test","password":"thisisatest1234"}}
+{
+    "dport": {"name": "Dan Port", "password": "portspassword", "email": "dport@hawaii.edu"},
+    "kazman": {"name": "Rick Kazman", "password": "kazmanpassword", "email": "kazman@hawaii.edu"},
+    "itm352": {"name": "ITM 352", "password": "grader", "email": "itm352@hawaii.edu"}
+}

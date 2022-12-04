@@ -8,16 +8,26 @@ app.use(express.urlencoded({ extended: true }));
 
 // Stores user information, Code taken from Port's examples
 var fs = require('fs');
-const { request } = require('http');
-const { response } = require('express');
-var filename = './user_data.json';
+var filename = __dirname + '/user_data.json';
 
 //used to store quantity data from products disiplay page
 //assume empty at first
-var temp_info = {};
+var current_users= {};
 
 // Create an object to keep count of how many users are logged in
 var status = [];
+
+if (fs.existsSync(filename)) {
+   // Code taken from Lab13 Exercise 3a
+   var user_info = fs.readFileSync(filename, 'utf-8');
+   //parse user_data
+   var user_data = JSON.parse(user_info);
+
+
+} else {
+   console.log(filename + ' does not exist.');
+   user_data = {};
+}
 
 //respond to any req for any path
 app.all('*', function (request, response, next) {
@@ -34,7 +44,25 @@ app.get("/products_data.js", function (request, response, next) {
    response.send(products_str);
 });
 
+//monitor requests
+app.get("/current_users", function (request, response, next) {
+   response.type('.js');
+   var current_users_str = `var current_users = ${JSON.stringify(current_users)};`;
+   response.send(current_users_str);
+});
 
+//monitor requests
+app.get("/invoice.html", function (request, response, next) {
+   if(typeof request.query['email'] != 'undefined'){
+      if(user_data[request.query['email']].loggedin == true){
+         next();
+         return;
+      }
+
+      
+   }
+   response.redirect("./login.html?" + qs.stringify(request.query));
+});
 
 //to track quantity sold
 products.forEach((prod, i) => { prod.total_sold = 0 });
@@ -105,23 +133,7 @@ function NonNegInt(q, returnErrors = false) {
    return (returnErrors ? errors : (errors.length == 0));
 }
 
-if (fs.existsSync(filename)) {
-   // Code taken from Lab13 Exercise 3a
-   var user_info = fs.readFileSync(filename, 'utf-8');
-   //parse user_data
-   var user_data = JSON.parse(user_info);
 
-   // For every user that is already in the system
-   for (let i = 0; i < Object.keys(user_data).length; i++) {
-      // If the user's status is set to "loggedin", push them to the status array
-      if (user_data[Object.keys(user_data)[i]].status == "loggedin") {
-         status.push(Object.keys(user_data)[i]);
-      }
-   }
-} else {
-   console.log(filename + ' does not exist.');
-   users_reg_data = {};
-}
 
 //---------------------Log-in---------------------//
 
@@ -135,19 +147,18 @@ app.post("/login", function (request, response) {
 
    //Check if email exists
    if (typeof user_data[login_email] != 'undefined') {
-      //Then checks password entered matches stored password
+      //Checks password entered matches stored password
       if (user_data[login_email].password == login_password) {
-         //stores uder info with in temp_info and sends to the invoice
-         temp_info['email'] = login_email;
 
-         // If the user's current status is "loggedout", change it to "loggedin" and push them to the status array
-         status[login_email] = true;
-         temp_info['name'] = user_data[login_email].name;
+         //stores under info with in temp_info and sends to the invoice
+         request.query['email'] = login_email;
 
-         //Counts how many users are logged in
-         temp_info['users'] = Object.keys(status).length
+         // If the user's current status is "loggedout", change it to "loggedin" and pushed to status array
+         current_users[login_email] = true;
+         request.query['name'] = user_data[login_email].name;
 
-         let params = new URLSearchParams(temp_info);
+         user_data[login_email].loggedin = true;
+
          // Send to invoice page if login successful
          response.redirect('/invoice.html?' + qs.stringify(request.query));
          // ends process
@@ -165,7 +176,6 @@ app.post("/login", function (request, response) {
    }
 
    //If there are errors, send back to login page with errors
-   params = new URLSearchParams(request.query);
    request.query['email'] = login_email;
    response.redirect(`./login.html?` + qs.stringify(request.query));
 });
@@ -220,6 +230,7 @@ app.post("/register", function (request, response) {
        user_data[new_email] = {};
        user_data[new_email].name = request.body.name;
        user_data[new_email].password = request.body.new_password;
+       user_data[new_email]['status'] = "loggedin"
 
        //Writes user information into file
        fs.writeFileSync(filename, JSON.stringify(user_data), "utf-8");
@@ -237,27 +248,6 @@ app.post("/register", function (request, response) {
        response.redirect(`./registration.html?` + qs.stringify(request.query));
    }
 });
-
-
-//Trashing login in email
-app.post('/process_logout', function (request, response) {
-   // Get the user's email from the hidden textbox
-   var email = request.body.email.toLowerCase();
-
-
-   /* Also, delete all of the info that you stored in temp_info because the user it's no longer needed if the user is logged out of the system*/
-   delete temp_info['email'];
-   delete temp_info['name'];
-   delete temp_info['users'];
-   //Delete email in the object
-   delete status.email
-   // Log Out Status
-   user_data[email].status = "loggedout";
-   // redirect the user to index if they choose to log out
-   response.redirect('/index.html?');
-
-
-})
 
 //--------------------Password Change--------------------//
 app.post("/updatepwd", function (request, response) {
@@ -322,6 +312,23 @@ app.post("/updatepwd", function (request, response) {
    request.query['email'] = login_email;
    request.query['errors'] = JSON.stringify(errors);
    response.redirect(`./updatepwd.html?` + qs.stringify(request.query));
+});
+
+//Trashing login in email
+app.post('/process_logout', function (request, response) {
+   // Get the user's email from the hidden textbox
+
+
+   /* Deletes all of the info that have been stored in temp_info due to it no longer needed if the user is logged out of the system*/
+   delete current_users[request.body['email']];
+   //Delete email in the object
+   delete status.email
+   // Log Out Status
+   user_data[request.body['email']].loggedin = false;
+   // redirect the user to index if they choose to log out
+   response.redirect('/index.html?');
+
+
 });
 
 

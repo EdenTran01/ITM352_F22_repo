@@ -2,6 +2,9 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 const CookieParser = require('cookie-parser');
+var session = require('express-session');
+
+app.use(session({secret: "MySecretKey", resave: true, saveUninitialized: true}));
 
 var filename = __dirname + '/user_data.json';
 // var users_reg_data = require(filename);
@@ -40,6 +43,13 @@ app.get("/set_cookie", function (request, response) {
 
  });
 
+ app.get("/use_session", function (request, response) {
+    console.log(request.session);
+    // Get the username cookie 
+    // if(typeof requ)
+    response.send(`welcome, your session ID is ${request.sessionID}`);
+
+ });
 
 app.get("/login", function (request, response) {
     // Give a simple login form

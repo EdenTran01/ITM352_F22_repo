@@ -9,11 +9,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice</title>
+    <style>
+        .IR5{
+            text-align: center;
+            font-weight: bold;
+            /*Text adjustments*/
+        }
+        .currentUsers{
+            text-align: center;
+            font-weight: bold;
+            /*Text adjustments*/
+        }
+    </style>
+    <h1 id= "IR5"></h1>
+    <h1 id= "currentUsers"></h1>
+
     <!-- CSS only -->
     <!-- Taken from CSS bootsrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="./products_data.js"></script>
+    <script src="./current_users"></script>
     <script>
         var quantities = [];
         let params = (new URL(document.location)).searchParams;
@@ -54,7 +70,6 @@
             <th style="text-align: center;" width="18%">price</th>
             <th style="text-align: center;" width="54%">extended price</th>
         </tr>
-        </div>
 
         <script>
             for (let i in quantities) {
@@ -138,8 +153,25 @@
         <input type="button" class="button" value="Return to Products Page"
             onclick="window.location.href = 'products_display.html';" style="background-color:white">
     </footer>
-    </div>
 
+    <script>
+        //IR5
+         // Obtains the URL
+         window.onload = function() {
+          document.getElementById('IR5').innerHTML = `Thank you, ${params.get('name')}! for shopping at Eden's Game Store`;
+          document.getElementById('currentUsers').innerHTML = `There are currently ${Object.keys(current_users).length} on our site`;
+          
+          // Grab values from the url and inputted into hidden input boxes
+         invoiceForm['email'].value = params.get('email');
+         }
+      
+      </script>
+      <form method="POST" name="invoiceForm" action='/process_logout'>
+        <input type="hidden" name="email" id="email">
+<footer>
+    <input type="submit" class="button" value="Logout">
+</footer>
+    
 
 </body>
 
