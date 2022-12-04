@@ -33,59 +33,52 @@ app.post('/process_form', function (request, response) {
    //Check if the quantities are valid
    var haserrors = false;
    var hasquantities = false;
-   var errors = [];
 
 
    for (let i in products) {
       let q = request.body["Quantity" + i];
-      if (typeof request.body != 'undefined') {
-         //Check if quantity > 0
-         var hasquantities = hasquantities || (q > 0);
-      }
-      //Check if all values are NonNegInt or Quantities
+
+      //Check if quantity > 0
+      hasquantities = hasquantities || (q > 0);
+
+      //Check if q is a NonNegInt
       haserrors = haserrors || (NonNegInt(q) == false);
-      //Pushes errors into errors array
-      errors = NonNegInt(q, true)
+
       //Check if quantites asked for are available
       haserrors = haserrors || (q > products[i].quantity_available);
 
-      //# of Products that get inputed into textbox get removed from the quantity avaialable
+   }
+
+
+   //Code taken from Lab 12 Ex5
+   if (!haserrors) {
       if (hasquantities == true) {
-         if (errors.length == 0) {
-            products[i].total_sold = Number(q);
+         //Will direct user to login if quantity input is valid 
+         //Referenced from Lab 12
+         //Remove item sold from inventory
+         for (let i in products) {
+            let q = request.body["Quantity" + i];
             var remainder = products[i].quantity_available;
             products[i].quantity_available = remainder - Number(q);
          }
-      }
-   }
-
-   //Check if any quantities were selected
-   haserrors = haserrors || (hasquantities == false)
-
-   //Code taken from Lab 12 Ex5
-   if (errors.length == 0) {
-      if (hasquantities == true) {
-         //Will direct user to invoice if quantity input is valid 
-         //Referenced from Lab 12
          response.redirect("./invoice.html?" + qs.stringify(request.body));
       } else {
          //User will be kept on the page if the input is invalid
-         response.redirect("./products_display.html?" + `&textError=Please enter a valid quantity`);
+         response.redirect("./products_display.html?" + qs.stringify(request.body) + `&error=Please select some items`);
 
       }
    }
    else {
       //User will be kept on the page if the input is invalid
-      response.redirect("./products_display.html?" + `&error=Please enter a proper quantity`);
+      response.redirect("./products_display.html?" + qs.stringify(request.body) + `&error=Please enter a proper quantity`);
    }
 
 });
 
-
-
 app.use(express.static(__dirname + '/public'));
 
 app.listen(8080, () => console.log(`listening on port 8080`)); // note the use of an anonymous function here to do a callback
+
 
 
 function NonNegInt(q, returnErrors = false) {

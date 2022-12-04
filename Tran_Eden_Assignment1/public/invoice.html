@@ -15,49 +15,12 @@
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="./products_data.js"></script>
     <script>
+        var quantities = [];
         let params = (new URL(document.location)).searchParams;
         for (i = 0; i < products.length; i++) {
             quantities.push(params.get("Quantity" + [i]));
-            products[i].quantity = params.get("Quantity" + [i])
         };
 
-
-        function generate_item_rows(product_quantities_array) {
-            for (let i in product_quantities_array) {
-
-                if (product_quantities_array[i] == 0) continue;
-
-                errors = NonNegInt(product_quantities_array[i], true);
-
-                if (errors.length == 0) {
-                    extended_price = product_quantities_array[i] * products[i].price;
-                    var msgerror = "";
-                } else {
-                    extended_price = 0 * products[i].price;
-                    var msgerror = errors.join(`<br>`);
-                }
-
-                //IR5 Small Icon Image displayed on the same line as the item name (Optional)
-                document.write(`
-                    <tr>
-                <td> <img src="${products[i].image}" style="width:20%"> ${products[i].model}</td>
-            <td align="center" width="11%">${products[i].quantity}<div style="color:red;">${msgerror}</td>
-            <td width="18%">\$${products[i].price.toFixed(2)}</td>
-            <td width="54%">\$${extended_price}</td>
-                    </tr>
-                `);
-                subtotal += extended_price;
-            };
-
-        }
-        function NonNegInt(arrayElement, returnErrors = false) {
-            errors = []; // assume no errors at first
-            if (Number(arrayElement) != arrayElement) errors.push('Not a number!'); // Check if string is a number value
-            if (arrayElement < 0) errors.push('Negative value!'); // Check if it is non-negative
-            if (parseInt(arrayElement) != arrayElement) errors.push('Not an integer!'); // Check that it is an integer
-
-            return (returnErrors ? errors : (errors.length == 0));
-        };
         // Subtotal
         var subtotal = 0;
 
@@ -94,7 +57,22 @@
         </div>
 
         <script>
-            this.innerHTML = generate_item_rows(quantities);
+            for (let i in quantities) {
+                if (quantities[i] == 0) continue;
+                extended_price = quantities[i] * products[i].price;
+
+                //IR5 Small Icon Image displayed on the same line as the item name (Optional)
+                document.write(`
+    <tr>
+<td> <img src="${products[i].image}" style="width:20%"> ${products[i].model}</td>
+<td align="center" width="11%">${quantities[i]}</td>
+<td width="18%">\$${products[i].price.toFixed(2)}</td>
+<td width="54%">\$${extended_price}</td>
+    </tr>
+`);
+                subtotal += extended_price;
+            }
+
             // Compute Tax
             var taxRate = (5.75 / 100);
             var tax = subtotal * taxRate;
