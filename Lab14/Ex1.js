@@ -41,10 +41,6 @@ app.get("/set_cookie", function (request, response) {
  });
 
 
-app.get("/set_cookie" , function(request, response))
-
-
-
 app.get("/login", function (request, response) {
     // Give a simple login form
     str = `
