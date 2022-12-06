@@ -1,0 +1,50 @@
+img {
+    width: 200px;
+    height: 150px
+        /*Image Adjustments*/
+}
+
+footer {
+    text-align: center;
+    /*Puts footer text in center*/
+}
+
+
+body {
+    background-color: wheat;
+    /*background color change*/
+}
+
+.customcard{
+    border: 5px solid black;
+    box-shadow: 10px 5px 15px black;
+    /*creates border and a shadow on box to show emphasis on products*/
+}
+
+p{
+    font-size: xx-large !important;
+    /*font size change, !important for CSS to override bootstrap load*/
+}
+
+.quantity{
+    font-size: large !important;
+    /*font size change, !important for CSS to override bootstrap load*/
+}
+
+footer input{
+    font-size: x-large;
+    font-weight: bold;
+    border: 3px solid black;
+    box-shadow: 5px 5px 10px black;
+    /*creates border,  a shadow on box to show emphasis on purchase btton, font size change to make box bigger*/
+}
+
+h1{
+    text-align: center;
+    font-weight: bold;
+    /*Text adjustments*/
+}
+
+h2{
+    font-size: 26px;
+}
