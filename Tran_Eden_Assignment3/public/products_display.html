@@ -84,10 +84,21 @@ window.onload = function() {
             return (returnErrors ? errors : (errors.length == 0));
         };
 
+          //Script Taken from Assignment 3 Code Examples
+
+   // get the query string
+   if (params.has('products_key')) {
+            var products_key = params.get('products_key');
+        } else {
+            document.write('no products key in query string');
+            document.stop;
+        }
+
     </script>
-    <nav class=" bg-light">
+    <nav class="bg-light">
         <div class="container-fluid">
-            <h1 class="d-flex justify-content-center">Consoles</h1>
+                <h1 class="d-flex justify-content-center" a href="#" onclick="window.location.href = 'index.html'">Home</a></h1>
+            <script>nav_bar(products_key, products);</script>
         </div>
     </nav>
     <form action="./process_form" method="POST" id="Form">

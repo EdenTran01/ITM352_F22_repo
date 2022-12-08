@@ -1,1 +1,6 @@
-{"itm352@hawaii.edu":{"name":"ITM 352","password":"grader"},"edent@hawaii.edu":{"name":"Eden Tran","password":"EdenTran123"},"test@hawaii.edu":{"name":"test","password":"thisisatest1234"},"samt@hawaii.edu":{"name":"Sam Tran","password":"1234567891"},"sal@hawaii.edu":{"name":"Sally Phone","password":"9876543210","status":"loggedin"},"pop@hawaii.edu":{"name":"poppy Pop","password":"0987654321","status":"loggedin"}}
+{"itm352@hawaii.edu":{"name":"ITM 352","password":"grader"},
+"edent@hawaii.edu":{"name":"Eden Tran","password":"EdenTran123"},
+"test@hawaii.edu":{"name":"test","password":"thisisatest1234"},
+"samt@hawaii.edu":{"name":"Sam Tran","password":"1234567891"},
+"sal@hawaii.edu":{"name":"Sally Phone","password":"9876543210","status":"loggedin"},
+"pop@hawaii.edu":{"name":"poppy Pop","password":"0987654321","status":"loggedin"}}

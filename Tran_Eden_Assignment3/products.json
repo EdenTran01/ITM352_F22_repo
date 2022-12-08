@@ -42,75 +42,75 @@
         "model": "Gamecube",
         "price": 25.00,
         "quantity_available": 10,
-        "image": " ./images/"
+        "image": " ./images/GameCube_Controller.png"
     },
     {
         "model": "PS4",
         "price": 40.00,
         "quantity_available": 20,
-        "image": "./images/"
+        "image": "./images/PS4_Controller.png"
     },
     {
         "model": "PS5",
         "price": 50.00,
         "quantity_available": 10,
-        "image": "./images/"
+        "image": "./images/PS5_Controller.png"
     },
     {
         "model": "Nintendo Switch",
         "price": 45.00,
         "quantity_available": 20,
-        "image": "./images/"
+        "image": "./images/Switch_Controller.png"
     },
     {
         "model": "Switch Pro Controller",
         "price": 50.00,
         "quantity_available": 10,
-        "image": "./images/"
+        "image": "./images/Switch_Pro_Controller.png"
     },
     {
         "model": "Xbox Series X",
         "price": 50.00,
         "quantity_available": 20,
-        "image": "./images/"
+        "image": "./images/xbox_series_x_controller.png"
     }
   ],
   "Monitors":[
     {
-        "model": "60hrz",
+        "model": "60hz",
         "price": 100.00,
         "quantity_available": 10,
-        "image": " ./images/"
+        "image": " ./images/60hz.png"
     },
     {
-        "model": "75hrz",
+        "model": "75hz",
         "price": 120.00,
         "quantity_available": 20,
-        "image": "./images/"
+        "image": "./images/75hz.png"
     },
     {
-        "model": "120hrz",
+        "model": "120hz",
         "price": 165.00,
         "quantity_available": 10,
-        "image": "./images/"
+        "image": "./images/120hz.png"
     },
     {
-        "model": "144hrz",
+        "model": "144hz",
         "price": 250.00,
         "quantity_available": 20,
-        "image": "./images/"
+        "image": "./images/144hz.png"
     },
     {
-        "model": "240hrz",
+        "model": "240hz",
         "price": 280.00,
         "quantity_available": 10,
-        "image": "./images/"
+        "image": "./images/240hz.png"
     },
     {
-        "model": "360hrz",
+        "model": "360hz",
         "price": 300.00,
         "quantity_available": 20,
-        "image": "./images/"
+        "image": "./images/360hz.png"
     }
   ]
 }

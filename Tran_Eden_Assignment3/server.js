@@ -67,8 +67,7 @@ app.get("/invoice.html", function (request, response, next) {
    response.redirect("./login.html?" + qs.stringify(request.query));
 });
 
-//to track quantity sold
-products.forEach((prod, i) => { prod.total_sold = 0 });
+
 
 //Taken from Server Side Processing Lab Ex6 Task 2
 app.use(express.urlencoded({ extended: true }));
@@ -334,7 +333,55 @@ app.post('/process_logout', function (request, response) {
 
 });
 
+//--------------------Products Key--------------------//
 
+//Products
+// borrowed from reece nagaoka, fall 2021, assignment 1, server.js 
+// Obtains the quantity data from the order form and checks it
+app.post('/add_item_to_cart', function (request, response) {
+   console.log(request.body); //Prof suggestion
+   var products_key = request.body ["products_key"]
+   var quantities = request.body["quantity"]; //Prof suggestion 
+   var addcart = cart.push(products_key, quantities)
+   console.log(cart)
+   var errors = {}; //assume no errors
+   var check_quantities = false;
+   // checks if quantities entered are non-negative integers 
+   for (i in quantities) {
+        //Prof suggestion
+       // Check quantity 
+       if (NonNegInt(quantities[i]) == false) {
+           console.log('valid quantity error')
+           errors['quantity' + i] = `Please choose a valid quantity for ${products[products_key][i].model}'s`;
+       } 
+        if (quantities[i] > 0) { //Check if quantities that were selected were greater than 0
+           check_quantities = true;
+       }
+       if (quantities[i] > products[products_key][i].quantity_available) { // this will check if the quantity entered is available
+           errors['available_' + i] = `We don't have ${(quantities[i])} ${products[products_key][i].model}s available.`;
+       }
+   }
+   if (!check_quantities) { //if a user tries to go to the invoice without selecting any products, this error will display 
+       errors['no_quantities'] = `Please select a quantity!`;
+   }
 
+   let params = new URLSearchParams({ "quantity": JSON.stringify(request.body["quantity"]) });
 
-
+   console.log(Object.keys(errors));
+   let qty_obj = { "quantity": JSON.stringify(request.body["quantity"]) };
+   //Ask if the object is empty or not 
+   if (Object.keys(errors).length == 0) {
+       for (i in quantities) {
+           products[products_key][i].quantity_available -= Number(quantities[i]); //Tracks the inventory
+       }
+   }
+   //Otherwise go back to products_display.html 
+   else {
+       let errs_obj = { "errors": JSON.stringify(errors) };
+       console.log(qs.stringify(qty_obj));
+       response.redirect('./products_display.html?' + qs.stringify(qty_obj) + '&' + qs.stringify(errs_obj));
+   }
+   function setCookie(products_key, quantities) {
+       document.cookie = products_key + "=" + quantities + ";" + ";path=/";
+     }
+});
