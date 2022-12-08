@@ -161,7 +161,7 @@
           document.getElementById('IR5').innerHTML = `Thank you, ${params.get('name')}! for shopping at Eden's Game Store`;
           document.getElementById('currentUsers').innerHTML = `There are currently ${Object.keys(current_users).length} on our site`;
           
-          // Grab values from the url and inputted into hidden input boxes
+          // Grab values from the url and inputted into the invoiceForm
          invoiceForm['email'].value = params.get('email');
          }
       

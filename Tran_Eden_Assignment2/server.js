@@ -45,13 +45,15 @@ app.get("/products_data.js", function (request, response, next) {
 });
 
 //monitor requests
+//IR5
 app.get("/current_users", function (request, response, next) {
    response.type('.js');
    var current_users_str = `var current_users = ${JSON.stringify(current_users)};`;
    response.send(current_users_str);
 });
 
-//monitor requests
+//monitors requests and sends user data to check if the user has logged in successfully
+//if successful, stores the user data into query string and displays it on invocie page
 app.get("/invoice.html", function (request, response, next) {
    if(typeof request.query['email'] != 'undefined'){
       if(user_data[request.query['email']].loggedin == true){
@@ -61,6 +63,7 @@ app.get("/invoice.html", function (request, response, next) {
 
       
    }
+   //redirects to login if login information is not valid/true
    response.redirect("./login.html?" + qs.stringify(request.query));
 });
 
