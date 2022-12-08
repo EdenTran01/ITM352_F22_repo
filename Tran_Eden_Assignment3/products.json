@@ -1,4 +1,5 @@
-[
+{
+    "Consoles": [
     {
         "model": "Gamecube",
         "price": 150.00,
@@ -35,4 +36,81 @@
         "quantity_available": 20,
         "image": "./images/xbox_series_x.png"
     }
-]
+],
+  "Controllers":[
+    {
+        "model": "Gamecube",
+        "price": 25.00,
+        "quantity_available": 10,
+        "image": " ./images/"
+    },
+    {
+        "model": "PS4",
+        "price": 40.00,
+        "quantity_available": 20,
+        "image": "./images/"
+    },
+    {
+        "model": "PS5",
+        "price": 50.00,
+        "quantity_available": 10,
+        "image": "./images/"
+    },
+    {
+        "model": "Nintendo Switch",
+        "price": 45.00,
+        "quantity_available": 20,
+        "image": "./images/"
+    },
+    {
+        "model": "Switch Pro Controller",
+        "price": 50.00,
+        "quantity_available": 10,
+        "image": "./images/"
+    },
+    {
+        "model": "Xbox Series X",
+        "price": 50.00,
+        "quantity_available": 20,
+        "image": "./images/"
+    }
+  ],
+  "Monitors":[
+    {
+        "model": "60hrz",
+        "price": 100.00,
+        "quantity_available": 10,
+        "image": " ./images/"
+    },
+    {
+        "model": "75hrz",
+        "price": 120.00,
+        "quantity_available": 20,
+        "image": "./images/"
+    },
+    {
+        "model": "120hrz",
+        "price": 165.00,
+        "quantity_available": 10,
+        "image": "./images/"
+    },
+    {
+        "model": "144hrz",
+        "price": 250.00,
+        "quantity_available": 20,
+        "image": "./images/"
+    },
+    {
+        "model": "240hrz",
+        "price": 280.00,
+        "quantity_available": 10,
+        "image": "./images/"
+    },
+    {
+        "model": "360hrz",
+        "price": 300.00,
+        "quantity_available": 20,
+        "image": "./images/"
+    }
+  ]
+}
