@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eden's Game Store</title>
+    <script src="./products_data.js"></script>
+
+    <!-- Link from CSS Bootstrap -->
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+    <script src="function.js"></script>
+
+    <script> //Taken from Assignment 3 code examples
+        var products;
+  loadJSON (`get_products_data`, function (response){
+    //Parse JSON string into Object
+    products = JSON.parse(repsonse)
+    console.log(products)
+  });
+  
+      var cart;
+      //Parse JSON string into Object
+  loadJSON (`get_cart`, function (response) {
+    cart = JSON.parse(response);
+  
+  });
+  
+  
+      </script>
+    
+</body>
+</html>

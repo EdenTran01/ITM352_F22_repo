@@ -1,7 +1,16 @@
 <!-- Author: Eden Tran -->
 <!-- Code taken froom Store 1 WOD, then modified for Assignment 1-->
+<script src="./products_data.js"></script>
+<script src="./function.js"></script>
+
 <script>
    let params = (new URL(document.location)).searchParams;
+
+var products_key = "Consoles";
+if (params.has("prod_key")){
+    products_key = params.get("prod_key");
+}
+var products = allproducts[products_key];
 
 //Referenced from Lab 12 info_server2c.js, with modification
 // On window load, function will be preformed
@@ -29,7 +38,6 @@ window.onload = function() {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consoles</title>
-    <script src="./products_data.js"></script>
 
     <!-- Link from CSS Bootstrap -->
     <!-- CSS only -->
@@ -89,7 +97,7 @@ window.onload = function() {
     <nav class="bg-light">
         <div class="container-fluid">
                 <h1 class="d-flex justify-content-center" a href="#" onclick="window.location.href = 'index.html'">Home</a></h1>
-            <script>nav_bar(products_key, products);</script>
+            <script>nav_bar(products_key, allproducts);</script>
         </div>
     </nav>
     <form action="./process_form" method="POST" id="Form">

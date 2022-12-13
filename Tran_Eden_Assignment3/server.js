@@ -35,12 +35,12 @@ app.all('*', function (request, response, next) {
    next();
 });
 //products data from json file and stores it
-var products = require(__dirname + '/products.json');
+var allproducts = require(__dirname + '/products.json');
 
 //monitor requests
 app.get("/products_data.js", function (request, response, next) {
    response.type('.js');
-   var products_str = `var products = ${JSON.stringify(products)};`;
+   var products_str = `var allproducts = ${JSON.stringify(allproducts)};`;
    response.send(products_str);
 });
 
@@ -67,11 +67,6 @@ app.get("/invoice.html", function (request, response, next) {
    response.redirect("./login.html?" + qs.stringify(request.query));
 });
 
-// Object.keys(products)[i] is going to get the keys from products,
-// search for the array that corresponds to that speicfic category of products
-for (let i = 0; i < Object.keys(products).length; i++) {
-    products[Object.keys(products)[i]].forEach((prod, i) => { prod.total_sold = 0 });
-}
 
 //Taken from Server Side Processing Lab Ex6 Task 2
 app.use(express.urlencoded({ extended: true }));
