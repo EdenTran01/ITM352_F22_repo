@@ -4,6 +4,9 @@ var express = require('express');
 var app = express();
 var qs = require("querystring");
 
+var session = require('express-session');
+app.use(session({secret: "MySecretKey", resave: true, saveUninitialized: true})); 
+
 app.use(express.urlencoded({ extended: true }));
 
 // Stores user information, Code taken from Port's examples
@@ -32,12 +35,12 @@ if (fs.existsSync(filename)) {
 //respond to any req for any path
 app.all('*', function (request, response, next) {
    console.log(request.method + ' to ' + request.path);
+   if(typeof request.session.cart == 'undefined') { request.session.cart = {}; } 
    next();
 });
 //products data from json file and stores it
 var allproducts = require(__dirname + '/products.json');
 
-console.log(allproducts + 656565656565)
 //monitor requests
 app.get("/products_data.js", function (request, response, next) {
    response.type('.js');
@@ -45,8 +48,26 @@ app.get("/products_data.js", function (request, response, next) {
    response.send(products_str);
 });
 
+//Taken from Assignment 3 Code Examples
+app.post("/addToCart", function (request, response) {
+    // add quantities to session for cart
+    if(typeof request.session.cart == 'undefined') {request.session.cart = {}}; // in case cart not yet defined
+    request.session.cart[request.query.products_key] = request.query.quantities;
+    response.send(`${request.query.quantities.reduce((a, b) => Number(a) + Number(b), 0)} items added to cart`);
+    console.log(request.session.cart);
+});
+//Cart Add
+//Taken from Assignment 3 Code Examples
+app.post("/get_cart", function (request, response) {
+    if (typeof request.session.cart == 'undefined') {
+        request.session.cart = {}
+    }
+    response.json(request.session.cart);
+}
+);
+
 //monitor requests
-//IR5
+//IR5 Assignment 2
 app.get("/current_users", function (request, response, next) {
    response.type('.js');
    var current_users_str = `var current_users = ${JSON.stringify(current_users)};`;
@@ -69,6 +90,7 @@ app.get("/invoice.html", function (request, response, next) {
 });
 
 
+
 //Taken from Server Side Processing Lab Ex6 Task 2
 app.use(express.urlencoded({ extended: true }));
 app.post('/process_form', function (request, response) {
@@ -77,10 +99,8 @@ app.post('/process_form', function (request, response) {
    var haserrors = false;
    var hasquantities = false;
 
-
    for (let i in allproducts) { 
       let q = request.body["Quantity" + i];
-
 
       //Check if quantity > 0
       hasquantities = hasquantities || (q > 0);
@@ -334,5 +354,5 @@ app.post('/process_logout', function (request, response) {
 
 });
 
-//--------------------Products--------------------//
+//--------------------Cart--------------------//
 

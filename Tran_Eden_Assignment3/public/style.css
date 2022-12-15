@@ -32,6 +32,8 @@ p{
 }
 
 footer input{
+    margin-left: 25%;
+    margin-right: 30%;
     font-size: x-large;
     font-weight: bold;
     border: 3px solid black;
@@ -55,4 +57,10 @@ h2{
 
 .bar a{
     color: inherit;
+}
+
+.cart{
+    max-width: 150px;
+    max-height: 150px;
+    float:right;
 }

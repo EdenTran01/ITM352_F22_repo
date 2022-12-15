@@ -29,6 +29,7 @@ window.onload = function() {
 }
 
 
+
 </script>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,8 +97,9 @@ window.onload = function() {
     </script>
     <nav class="bg-light">
         <div class="container-fluid">
+            <a href = 'cart.html'><img class="cart" src="./images/cart.png"></a>
                 <h1 class="d-flex justify-content-center" a href="#" onclick="window.location.href = 'index.html'">Home</a></h1>
-            <h1><script>nav_bar(products_key, allproducts);</script></h1>
+            <h1><script>nav_bar(products_key, allproducts);</script></h1> 
         </div>
     </nav>
     <form action="./process_form" method="POST" id="Form">
@@ -131,7 +133,8 @@ window.onload = function() {
 
 
         <footer>
-            <input type="submit" value="Purchase" style="background-color:white">
+            <input name="add_item_to_cart_submit" type="submit" value="Add Item to Cart" id="add_item_to_cart_submit">
+            <input type="submit" class="button" onclick="location.href = 'login.html' + document.location.search" value="Log-In">
         </footer>
 </body>
 </form>
