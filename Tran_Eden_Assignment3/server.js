@@ -2,7 +2,7 @@
 //Taken from Eden Tran Github Spring 2022 info_server_Ex5.js
 var express = require('express');
 var app = express();
-var qs = require("querystring")
+var qs = require("querystring");
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -37,10 +37,11 @@ app.all('*', function (request, response, next) {
 //products data from json file and stores it
 var allproducts = require(__dirname + '/products.json');
 
+console.log(allproducts + 656565656565)
 //monitor requests
 app.get("/products_data.js", function (request, response, next) {
    response.type('.js');
-   var products_str = `var allproducts = ${JSON.stringify(allproducts)};`;
+   var products_str = `var allproducts = ${JSON.stringify(allproducts)}`;
    response.send(products_str);
 });
 
@@ -77,8 +78,9 @@ app.post('/process_form', function (request, response) {
    var hasquantities = false;
 
 
-   for (let i in products) {
+   for (let i in allproducts) { 
       let q = request.body["Quantity" + i];
+
 
       //Check if quantity > 0
       hasquantities = hasquantities || (q > 0);
@@ -98,12 +100,12 @@ app.post('/process_form', function (request, response) {
          //Will direct user to login if quantity input is valid 
          //Referenced from Lab 12
          //Remove item sold from inventory
-         for (let i in products) {
+         for (let i in allproducts) {
             let q = request.body["Quantity" + i];
             var remainder = products[i].quantity_available;
-            products[i].quantity_available = remainder - Number(q);
+            products[i].quantity_available = remainder - Number(q);             
          }
-         response.redirect("./login.html?" + qs.stringify(request.body));
+         response.redirect("./cart.html?" + qs.stringify(request.body));
       } else {
          //User will be kept on the page if the input is invalid
          response.redirect("./products_display.html?" + qs.stringify(request.body) + `&error=Please select some items`);
@@ -288,7 +290,7 @@ app.post("/updatepwd", function (request, response) {
            //If errors is empty
            if (JSON.stringify(errors) == '[]') {
                //Write data and send to invoice.html
-               user_data[login_email].password = request.body.new_password
+               user_data[login_email].password = request.body.new_password;
 
                //Writes user information into file
                fs.writeFileSync(filename, JSON.stringify(user_data), "utf-8");
@@ -332,55 +334,5 @@ app.post('/process_logout', function (request, response) {
 
 });
 
-//--------------------Products Key--------------------//
+//--------------------Products--------------------//
 
-//Products
-// borrowed from reece nagaoka, fall 2021, assignment 1, server.js 
-// Obtains the quantity data from the order form and checks it
-app.post('/add_item_to_cart', function (request, response) {
-   console.log(request.body); //Prof suggestion
-   var products_key = request.body ["products_key"]
-   var quantities = request.body["quantity"]; //Prof suggestion 
-   var addcart = cart.push(products_key, quantities)
-   console.log(cart)
-   var errors = {}; //assume no errors
-   var check_quantities = false;
-   // checks if quantities entered are non-negative integers 
-   for (i in quantities) {
-        //Prof suggestion
-       // Check quantity 
-       if (NonNegInt(quantities[i]) == false) {
-           console.log('valid quantity error')
-           errors['quantity' + i] = `Please choose a valid quantity for ${products[products_key][i].model}'s`;
-       } 
-        if (quantities[i] > 0) { //Check if quantities that were selected were greater than 0
-           check_quantities = true;
-       }
-       if (quantities[i] > products[products_key][i].quantity_available) { // this will check if the quantity entered is available
-           errors['available_' + i] = `We don't have ${(quantities[i])} ${products[products_key][i].model}s available.`;
-       }
-   }
-   if (!check_quantities) { //if a user tries to go to the invoice without selecting any products, this error will display 
-       errors['no_quantities'] = `Please select a quantity!`;
-   }
-
-   let params = new URLSearchParams({ "quantity": JSON.stringify(request.body["quantity"]) });
-
-   console.log(Object.keys(errors));
-   let qty_obj = { "quantity": JSON.stringify(request.body["quantity"]) };
-   //Ask if the object is empty or not 
-   if (Object.keys(errors).length == 0) {
-       for (i in quantities) {
-           products[products_key][i].quantity_available -= Number(quantities[i]); //Tracks the inventory
-       }
-   }
-   //Otherwise go back to products_display.html 
-   else {
-       let errs_obj = { "errors": JSON.stringify(errors) };
-       console.log(qs.stringify(qty_obj));
-       response.redirect('./products_display.html?' + qs.stringify(qty_obj) + '&' + qs.stringify(errs_obj));
-   }
-   function setCookie(products_key, quantities) {
-       document.cookie = products_key + "=" + quantities + ";" + ";path=/";
-     }
-});

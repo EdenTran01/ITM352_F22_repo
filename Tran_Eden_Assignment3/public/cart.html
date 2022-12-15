@@ -15,25 +15,26 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 
-    <script src="function.js"></script>
+<script src="function.js"></script>
 
-    <script> //Taken from Assignment 3 code examples
-        var products;
-  loadJSON (`get_products_data`, function (response){
+<script> //Taken from Assignment 3 code examples
+    var products;
+    loadJSON(`get_products_data`, function (response) {
+        //Parse JSON string into Object
+        products = JSON.parse(repsonse)
+        console.log(products)
+    });
+
+    var cart;
     //Parse JSON string into Object
-    products = JSON.parse(repsonse)
-    console.log(products)
-  });
-  
-      var cart;
-      //Parse JSON string into Object
-  loadJSON (`get_cart`, function (response) {
-    cart = JSON.parse(response);
-  
-  });
-  
-  
-      </script>
-    
+    loadJSON(`get_cart`, function (response) {
+        cart = JSON.parse(response);
+
+    });
+
+
+</script>
+
 </body>
+
 </html>
