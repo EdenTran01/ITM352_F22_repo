@@ -35,6 +35,7 @@ if (fs.existsSync(filename)) {
 //respond to any req for any path
 app.all('*', function (request, response, next) {
    console.log(request.method + ' to ' + request.path);
+   //Taken from Assignment 3 Class Example
    if(typeof request.session.cart == 'undefined') { request.session.cart = {}; } 
    next();
 });
