@@ -102,9 +102,10 @@ window.onload = function() {
             <h1><script>nav_bar(products_key, allproducts);</script></h1> 
         </div>
     </nav>
-    <form action="./process_form" method="POST" id="Form">
+    <form action="./addtocart" method="POST" id="Form">
         <div class="d-flex justify-content-evenly row">
             <script>
+                document.write(`<input type="hidden" name="prod_key" value="${products_key}">`);
                 //Taken from Store1 WOD and Added Quantity Avail label
                 for (i = 0; i < products.length; i++) {
                     document.write(`
@@ -134,7 +135,7 @@ window.onload = function() {
 
         <footer>
             <input name="add_item_to_cart_submit" type="submit" value="Add Item to Cart" id="add_item_to_cart_submit">
-            <input type="submit" class="button" onclick="location.href = 'login.html' + document.location.search" value="Log-In">
+            <input type="button" onclick="location.href = 'login.html' + document.location.search" value="Log-In">
         </footer>
 </body>
 </form>

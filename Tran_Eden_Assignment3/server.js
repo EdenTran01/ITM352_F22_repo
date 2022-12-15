@@ -36,7 +36,14 @@ if (fs.existsSync(filename)) {
 app.all('*', function (request, response, next) {
    console.log(request.method + ' to ' + request.path);
    //Taken from Assignment 3 Code Class Example
-   if(typeof request.session.cart == 'undefined') { request.session.cart = {}; } 
+   if(typeof request.session.cart == 'undefined'){ 
+   request.session.cart = {};
+      for (let pkey in allproducts) {
+         request.session.cart[pkey] = Array(allproducts[pkey].length).fill( 0 );
+      }
+     
+   } 
+   console.log(request.session.cart);
    next();
 });
 //products data from json file and stores it
@@ -49,14 +56,6 @@ app.get("/products_data.js", function (request, response, next) {
    response.send(products_str);
 });
 
-//Taken from Assignment 3 Code Class Examples
-app.post("/addToCart", function (request, response) {
-    // add quantities to session for cart
-    if(typeof request.session.cart == 'undefined') {request.session.cart = {}}; // in case cart not yet defined
-    request.session.cart[request.query.products_key] = request.query.quantities;
-    response.send(`${request.query.quantities.reduce((a, b) => Number(a) + Number(b), 0)} items added to cart`);
-    console.log(request.session.cart);
-});
 
 //Cart Add
 //Taken from Assignment 3 Eden Tran Spring Github
@@ -92,13 +91,14 @@ app.get("/invoice.html", function (request, response, next) {
 
 //Taken from Server Side Processing Lab Ex6 Task 2
 app.use(express.urlencoded({ extended: true }));
-app.post('/process_form', function (request, response) {
+app.post('/addtocart', function (request, response) {
    console.log(request.body);
    //Check if the quantities are valid
    var haserrors = false;
    var hasquantities = false;
+   var prod_key = request.body.prod_key
 
-   for (let i in allproducts) { 
+   for (let i in allproducts[prod_key]) { 
       let q = request.body["Quantity" + i];
 
       //Check if quantity > 0
@@ -107,11 +107,9 @@ app.post('/process_form', function (request, response) {
       //Check if q is a NonNegInt
       haserrors = haserrors || (NonNegInt(q) == false);
 
-      //Check if quantites asked for are available
-      haserrors = haserrors || (q > products[i].quantity_available);
-
+      //Check if quantites asked for are available inlcuding what is avialable in their cart
+      haserrors = haserrors || (Number(q) + request.session.cart[prod_key][i] > allproducts[prod_key][i].quantity_available);
    }
-
 
    //Code taken from Lab 12 Ex5
    if (!haserrors) {
@@ -119,11 +117,18 @@ app.post('/process_form', function (request, response) {
          //Will direct user to login if quantity input is valid 
          //Referenced from Lab 12
          //Remove item sold from inventory
+
+         /*
          for (let i in allproducts) {
             let q = request.body["Quantity" + i];
             var remainder = products[i].quantity_available;
             products[i].quantity_available = remainder - Number(q);             
          }
+         */
+        //add selected items to cart in session
+        for (let i in allproducts[prod_key]) {
+         request.session.cart[prod_key][i] += Number(request.body["Quantity" + i]);
+        }
          response.redirect("./cart.html?" + qs.stringify(request.body));
       } else {
          //User will be kept on the page if the input is invalid

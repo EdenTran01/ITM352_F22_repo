@@ -1,13 +1,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<script>
-    var products_key = "Consoles";
-if (params.has("prod_key")){
-    products_key = params.get("prod_key");
-}
-var products = allproducts[products_key];           
-</script>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,46 +21,13 @@ var products = allproducts[products_key];
     <nav class="bg-light">
         <div class="container-fluid">
                 <h1 class="d-flex justify-content-center" a href="#" onclick="window.location.href = 'index.html'">Home</a></h1>
-            <h1><script>nav_bar(products_key, allproducts);</script></h1>
+            <h1><script>nav_bar(' ', allproducts);</script></h1>
         </div>
     </nav>
 
 <script> 
-function addToCart() {
-    for(let i in products) {
-        params.set(`Quantity[${i}]`, product_form[`Quantity[${i}]`].value);
-    }
-    console.log(params.toString());
-    loadJSON('./addToCart?' + params.toString(), function(resp) {alert(resp)});
-}
-        // get the query string
-        params = (new URL(document.location)).searchParams;
-        if (params.has('products_key')) {
-            var this_product_key = params.get('products_key');
-        } else {
-            document.write('no products key in query string');
-            document.stop;
-        }
 
-        var products_data;
-        loadJSON('get_products_data', function (response) {
-            // Parsing JSON string into object
-            products_data = JSON.parse(response);
-        });
-
-        var cart;
-        loadJSON('get_cart', function (response) {
-            // Parsing JSON string into object
-            cart= JSON.parse(response);
-        });
-
-//Taken from Assignment 3 code examples
-    var products;
-    loadJSON(`get_products_data`, function (response) {
-        //Parse JSON string into Object
-        products = JSON.parse(repsonse)
-        console.log(products)
-    });
+for (products_key in cart)
 
     var cart;
     //Parse JSON string into Object
@@ -76,7 +36,7 @@ function addToCart() {
 
     });
 
-
+console.log(cart);
 </script>
 
 </body>
