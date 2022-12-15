@@ -35,7 +35,7 @@ if (fs.existsSync(filename)) {
 //respond to any req for any path
 app.all('*', function (request, response, next) {
    console.log(request.method + ' to ' + request.path);
-   //Taken from Assignment 3 Class Example
+   //Taken from Assignment 3 Code Class Example
    if(typeof request.session.cart == 'undefined') { request.session.cart = {}; } 
    next();
 });
@@ -49,7 +49,7 @@ app.get("/products_data.js", function (request, response, next) {
    response.send(products_str);
 });
 
-//Taken from Assignment 3 Code Examples
+//Taken from Assignment 3 Code Class Examples
 app.post("/addToCart", function (request, response) {
     // add quantities to session for cart
     if(typeof request.session.cart == 'undefined') {request.session.cart = {}}; // in case cart not yet defined
@@ -57,14 +57,12 @@ app.post("/addToCart", function (request, response) {
     response.send(`${request.query.quantities.reduce((a, b) => Number(a) + Number(b), 0)} items added to cart`);
     console.log(request.session.cart);
 });
+
 //Cart Add
-//Taken from Assignment 3 Code Examples
+//Taken from Assignment 3 Eden Tran Spring Github
 app.post("/get_cart", function (request, response) {
-    if (typeof request.session.cart == 'undefined') {
-        request.session.cart = {}
-    }
     response.json(request.session.cart);
-}
+} 
 );
 
 //monitor requests
@@ -184,7 +182,7 @@ app.post("/login", function (request, response) {
          user_data[login_email].loggedin = true;
 
          // Send to invoice page if login successful
-         response.redirect('/invoice.html?' + qs.stringify(request.query));
+         response.redirect('/products_display.html?' + qs.stringify(request.query));
          // ends process
          return;
          // if the password does not match the password entered then error message for wrong password
@@ -261,7 +259,7 @@ app.post("/register", function (request, response) {
 
        //Add email to query
        params.append('email', request.body.email);
-       response.redirect('./invoice.html?' + params.toString());
+       response.redirect('./login.html?' + params.toString());
        return;
    }
    else {
@@ -318,7 +316,7 @@ app.post("/updatepwd", function (request, response) {
 
                //Add email to query
                params.append('email', request.body.email);
-               response.redirect('./invoice.html?' + params.toString());
+               response.redirect('./login.html?' + params.toString());
                return;
            }
        }
