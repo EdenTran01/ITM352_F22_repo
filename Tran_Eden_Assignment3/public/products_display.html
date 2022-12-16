@@ -2,6 +2,7 @@
 <!-- Code taken froom Store 1 WOD, then modified for Assignment 1-->
 <script src="./products_data.js"></script>
 <script src="./function.js"></script>
+<script src="./current_users"></script>
 
 <script>
    let params = (new URL(document.location)).searchParams;
@@ -38,7 +39,9 @@ window.onload = function() {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consoles</title>
+    <title>Eden's Game Store</title>
+
+
 
     <!-- Link from CSS Bootstrap -->
     <!-- CSS only -->
@@ -130,6 +133,7 @@ window.onload = function() {
                 }
             </script>
         </div>
+            
 
 
 
@@ -138,17 +142,29 @@ window.onload = function() {
         <footer>
             <input name="add_item_to_cart_submit" type="submit" value="Add Item to Cart" id="add_item_to_cart_submit">
             <input type="button" onclick="location.href = 'login.html' + document.location.search" value="Log-In">
-        </footer>
+
+            <style>
+                .currentUsers{
+                    text-align: center;
+                    font-weight: bold;
+                    /*Text adjustments*/
+                }
+            </style>
+            <h1 id= "currentUsers"></h1>
+
         <script>
-        // Obtains the URL
-             window.onload = function() {
-        document.getElementById('currentUsers').innerHTML = `There are currently ${Object.keys(current_users).length} on our site`;
-          
-        // Grab values from the url and inputted into the invoiceForm
-       invoiceForm['email'].value = params.get('email');
-       }
-    
-    </script>
+
+            // Obtains the URL
+                 window.onload = function() {
+            document.getElementById('currentUsers').innerHTML = `There are currently ${Object.keys(current_users).length} on our site`;
+            
+           }
+        
+        </script>
+
+
+        </footer>
+
 </body>
 </form>
 
