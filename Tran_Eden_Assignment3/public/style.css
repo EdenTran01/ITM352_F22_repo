@@ -58,6 +58,8 @@ h2{
 
 .bar a{
     color: inherit;
+    text-align: center;
+    float:inline-start
 }
 
 .cart{

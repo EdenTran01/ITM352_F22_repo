@@ -118,13 +118,6 @@ app.post('/addtocart', function (request, response) {
          //Referenced from Lab 12
          //Remove item sold from inventory
 
-         /*
-         for (let i in allproducts) {
-            let q = request.body["Quantity" + i];
-            var remainder = products[i].quantity_available;
-            products[i].quantity_available = remainder - Number(q);             
-         }
-         */
         //add selected items to cart in session
         for (let i in allproducts[prod_key]) {
          request.session.cart[prod_key][i] += Number(request.body["Quantity" + i]);
@@ -360,3 +353,10 @@ app.post('/process_logout', function (request, response) {
 
 //--------------------Cart--------------------//
 
+        /*
+         for (let i in allproducts) {
+            let q = request.body["Quantity" + i];
+            var remainder = products[i].quantity_available;
+            products[i].quantity_available = remainder - Number(q);             
+         }
+         */

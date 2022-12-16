@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,16 +26,14 @@
 
 <script> 
 
-for (products_key in cart)
-
     var cart;
     //Parse JSON string into Object
     loadJSON(`get_cart`, function (response) {
         cart = JSON.parse(response);
 
     });
+    
 
-console.log(cart);
 </script>
 
 </body>

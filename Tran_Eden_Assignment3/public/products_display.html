@@ -95,11 +95,13 @@ window.onload = function() {
 
 
     </script>
+
     <nav class="bg-light">
+        <a href = 'cart.html'><img class="cart" src="./images/cart.png"></a>
         <div class="container-fluid">
-            <a href = 'cart.html'><img class="cart" src="./images/cart.png"></a>
                 <h1 class="d-flex justify-content-center" a href="#" onclick="window.location.href = 'index.html'">Home</a></h1>
             <h1><script>nav_bar(' ', allproducts);</script></h1> 
+
         </div>
     </nav>
     <form action="./addtocart" method="POST" id="Form">
@@ -137,6 +139,16 @@ window.onload = function() {
             <input name="add_item_to_cart_submit" type="submit" value="Add Item to Cart" id="add_item_to_cart_submit">
             <input type="button" onclick="location.href = 'login.html' + document.location.search" value="Log-In">
         </footer>
+        <script>
+        // Obtains the URL
+             window.onload = function() {
+        document.getElementById('currentUsers').innerHTML = `There are currently ${Object.keys(current_users).length} on our site`;
+          
+        // Grab values from the url and inputted into the invoiceForm
+       invoiceForm['email'].value = params.get('email');
+       }
+    
+    </script>
 </body>
 </form>
 
