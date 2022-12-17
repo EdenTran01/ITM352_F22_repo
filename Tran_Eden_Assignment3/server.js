@@ -406,9 +406,9 @@ app.post('/process_logout', function (request, response) {
     
       var user_email = 'edent@hawaii.edu';
       var mailOptions = {
-        from: 'phoney_store@bogus.com',
+        from: 'gamestore@game.com',
         to: user_email,
-        subject: 'Your phoney invoice',
+        subject: 'Game Store invoice',
         html: invoice_str
       };
     
