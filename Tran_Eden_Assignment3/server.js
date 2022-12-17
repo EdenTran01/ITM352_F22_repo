@@ -49,6 +49,24 @@ app.all('*', function (request, response, next) {
 //products data from json file and stores it
 var allproducts = require(__dirname + '/products.json');
 
+//Taken from Lab14 Ex.2
+app.get("/set_cookie", function (request, response) {
+   // Give a cookie 
+   var myName = user_data['name'];
+   response.cookie('username', myName,  {"maxAge": 5000});
+   response.send('The cokkie has been set');
+});
+
+//Taken from Lab14 Ex.2
+app.get("/use_cookie", function (request, response) {
+   console.log(request.cookies);
+   // Get the username cookie 
+   // if(typeof requ)
+   response.send(`Welcome to Eden's Game Store ${request.cookies['username']}`);
+
+});
+
+
 //monitor requests
 app.get("/products_data.js", function (request, response, next) {
    response.type('.js');
@@ -114,6 +132,7 @@ app.post('/addtocart', function (request, response) {
    //Code taken from Lab 12 Ex5
    if (!haserrors) {
       if (hasquantities == true) {
+
          //Will direct user to login if quantity input is valid 
          //Referenced from Lab 12
          //Remove item sold from inventory
@@ -354,7 +373,6 @@ app.post('/process_logout', function (request, response) {
 //--------------------Cart--------------------//
 
    app.get("/checkout", function (request, response) {
-
       for (let i in allproducts) {
          let q = request.body["Quantity" + i];
          var remainder = allproducts[i].quantity_available;
@@ -401,12 +419,10 @@ app.post('/process_logout', function (request, response) {
           invoice_str += `<br>Your invoice was mailed to ${user_email}`;
         }
         response.send(invoice_str);
-
-                        // Send to invoice page 
-                        response.redirect('/invoice.html?' + qs.stringify(request.prod_key));
      
  }
    )
     }
       );
+
  
