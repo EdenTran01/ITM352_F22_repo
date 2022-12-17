@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,34 +8,114 @@
     <title>Eden's Game Store</title>
     <script src="./products_data.js"></script>
     <script src="./function.js"></script>
+    <script src="./current_users"></script>
 
     <!-- Link from CSS Bootstrap -->
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
+    <script>
+        var quantities = [];
+        let params = (new URL(document.location)).searchParams;
+        for (i = 0; i < allproducts.length; i++) {
+            quantities.push(params.get("Quantity" + [i]));
+        };
+    </script>
 </head>
+<style>
+    body {
+        background-color: wheat;
+        /*background color change to wheat*/
+    }
+
+    table {
+        background-color: white;
+        box-shadow: 5px 5px 10px black;
+        /*color change on textbox to white with a shadow to display emphasis*/
+    }
+
+    td {
+        font-size: 18px;
+        text-align: center;
+        /*font size change and alignment*/
+    }
+</style>
 
 <body>
-
+    
     <nav class="bg-light">
         <div class="container-fluid">
-                <h1 class="d-flex justify-content-center" a href="#" onclick="window.location.href = 'index.html'">Home</a></h1>
-            <h1><script>nav_bar(' ', allproducts);</script></h1>
+            <h1 class="d-flex justify-content-center" a href="#" onclick="window.location.href = 'index.html'">Home</a>
+            </h1>
+            <h1>
+                <script>nav_bar(' ', allproducts);</script>
+            </h1>
         </div>
     </nav>
 
-<script> 
+    <table style="border:5px solid black; margin-top:0% ;margin-left:auto;margin-right:auto; font-size: large; ">
+        <tr>
+            <th style="text-align: center;" width="43%">Item</th>
+            <th style="text-align: center;" width="11%">quantity</th>
+            <th style="text-align: center;" width="18%">price</th>
+        </tr>
+        <script>
 
-    var cart;
-    //Parse JSON string into Object
-    loadJSON(`get_cart`, function (response) {
-        cart = JSON.parse(response);
+            var cart;
+            //Parse JSON string into Object
+            loadJSON(`get_cart`, function (response) {
+                cart = JSON.parse(response);
 
-    });
+            });
+
+            //Double Loop
+            //Displays products onto the cart
+            for (let products_key in cart) {
+                for (let i in cart[products_key]) {
+                    
+                    console.log(cart[products_key][i], allproducts[products_key][i].model, allproducts[products_key][i].price); 
+
+                document.write(`
+                    <tr>
+                        <td> <img src="${allproducts[products_key][i].image}" style="width:20%"> ${allproducts[products_key][i].model}</td>
+                        <td align="center" width="11%">${cart[products_key][i]}</td>
+                        <td width="18%">\$${allproducts[products_key][i].price.toFixed(2)}</td>
+                    </tr>
+                    `);
+                }
+            }
+        </script>
+    </table>
+
+
+<footer>
+
+    <script>
+        document.write(`<form action="/checkout${location.search}" method="POST">`) 
+    </script>
+       <input type="submit" value="Purchase" style="background-color:white">
+
+    <style>
+        .currentUsers{
+            text-align: center;
+            font-weight: bold;
+            /*Text adjustments*/
+        }
+    </style>
+    <h1 id= "currentUsers"></h1>
+
+<script>
+
+    // Obtains the URL
+         window.onload = function() {
+    document.getElementById('currentUsers').innerHTML = `There are currently ${Object.keys(current_users).length} on our site`;
     
+   }
 
 </script>
+</footer>
+
 
 </body>
 
