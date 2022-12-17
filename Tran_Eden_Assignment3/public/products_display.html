@@ -117,6 +117,7 @@ window.onload = function() {
                     document.write(`
                     <div class="col-3 p-5">
         <div class="card customcard" style="width: 18rem;">
+
             <img src="${products[i].image}">
             <div class="card-body">
                 <h2>${products[i].model}</h2>
@@ -126,13 +127,14 @@ window.onload = function() {
                     <br>
                     <label id="Quantity${i}_label"}">Quantity</label>
                     <input type="text" placeholder=" " name="Quantity${i}" id="qtyin${i}" onchange= "checkQtyTextbox(this)"> 
+
                     <fieldset class="rating one">
-        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!"><span>&#9733</span></label>
-        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good"><span>&#9733</span></label>
-        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh"><span>&#9733</span></label>
-        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad"><span>&#9733</span></label>
-        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time"><span>&#9733</span></label>
-    </fieldset>
+                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Amazing!"><span>&#9733</span></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good"><span>&#9733</span></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh"><span>&#9733</span></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad"><span>&#9733</span></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Terrible"><span>&#9733</span></label>
+                    </fieldset>
 
                 </div>
             </div>
