@@ -360,50 +360,53 @@ app.post('/process_logout', function (request, response) {
          var remainder = allproducts[i].quantity_available;
          allproducts[i].quantity_available = remainder - Number(q);             
       }
-
+               
       //Taken from Assignment 3 Code Examples
       // Generate HTML invoice string
-        var invoice_str = `Thank you for your order!<table border><th>Quantity</th><th>Item</th>`;
-        var shopping_cart = request.session.cart;
-        for(products_key in products_data) {
-          for(i=0; i<products_data[products_key].length; i++) {
-              if(typeof shopping_cart[producs_key] == 'undefined') continue;
-              qty = shopping_cart[products_key][i];
-              if(cart[products_key][i] > 0) {
-                invoice_str += `<tr><td>${cart[products_key][i]}</td><td>${products_data[products_key][i].model}</td><tr>`;
-              }
-          }
-      }
-        invoice_str += '</table>';
-      // Set up mail server. Only will work on UH Network due to security restrictions
-        var transporter = nodemailer.createTransport({
-          host: "mail.hawaii.edu",
-          port: 25,
-          secure: false, // use TLS
-          tls: {
-            // do not fail on invalid certs
-            rejectUnauthorized: false
-          }
-        });
-      
-        var user_email = 'edent@hawaii.edu';
-        var mailOptions = {
-          from: 'phoney_store@bogus.com',
-          to: user_email,
-          subject: 'Your phoney invoice',
-          html: invoice_str
-        };
-      
-        transporter.sendMail(mailOptions, function(error, info){
-          if (error) {
-            invoice_str += '<br>There was an error and your invoice could not be emailed :(';
-          } else {
-            invoice_str += `<br>Your invoice was mailed to ${user_email}`;
-          }
-          response.send(invoice_str);
-          // Send to invoice page 
-         response.redirect('/invoice.html?' + qs.stringify(request.query));
-        });
-       
+      var invoice_str = `Thank you for your order!<table border><th>Quantity</th><th>Item</th>`;
+      var shopping_cart = request.session.cart;
+      for(products_key in products_data) {
+        for(i=0; i<products_data[products_key].length; i++) {
+            if(typeof shopping_cart[producs_key] == 'undefined') continue;
+            qty = shopping_cart[products_key][i];
+            if(cart[products_key][i] > 0) {
+              invoice_str += `<tr><td>${cart[products_key][i]}</td><td>${products_data[products_key][i].model}</td><tr>`;
+            }
+        }
+    }
+      invoice_str += '</table>';
+    // Set up mail server. Only will work on UH Network due to security restrictions
+      var transporter = nodemailer.createTransport({
+        host: "mail.hawaii.edu",
+        port: 25,
+        secure: false, // use TLS
+        tls: {
+          // do not fail on invalid certs
+          rejectUnauthorized: false
+        }
       });
+    
+      var user_email = 'edent@hawaii.edu';
+      var mailOptions = {
+        from: 'phoney_store@bogus.com',
+        to: user_email,
+        subject: 'Your phoney invoice',
+        html: invoice_str
+      };
+    
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          invoice_str += '<br>There was an error and your invoice could not be emailed :(';
+        } else {
+          invoice_str += `<br>Your invoice was mailed to ${user_email}`;
+        }
+        response.send(invoice_str);
+
+                        // Send to invoice page 
+                        response.redirect('/invoice.html?' + qs.stringify(request.prod_key));
+     
+ }
+   )
+    }
+      );
  
